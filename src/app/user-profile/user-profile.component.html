@@ -1,0 +1,74 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-header" >
+                      <h4 class="card-title">Fill in the data</h4>
+                      <p class="card-category">Please do not submite before you make sure of the writen data validity </p>
+                  </div>
+                  <div class="card-body">
+                      <form>
+                          
+                          <div class="row">
+                              <div class="col-md-5">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Fist Name" type="text" name="first_name" required>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-5">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Last Name" type="text" name="last_name"  required>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-10">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Email address" name="email"  [formControl]="emailFormControl">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                          <div class="row">
+                              <div class="col-md-10">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Password" type="password" name="pswd" required>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-5">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="CIN" type="number" size="8" name="cin" required>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-5">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Number of phone " type="number" size="8" name="num_tel" required>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-10">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Amount" type="number" name="amount" required>
+                              </mat-form-field>
+                            </div>
+                         </div>
+                         <div class="row">
+                          <div class="col-md-10">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Description" type="text" required>
+                            </mat-form-field>
+                          </div>
+                       </div>
+                          <button mat-raised-button type="submit" class="btn btn-primary btn-lg" onsubmit="adduser()">add user</button>
+                          <button mat-raised-button type="reset" class="btn btn-outline-dark ">Reset</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div>
