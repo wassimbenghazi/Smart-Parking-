@@ -1,4 +1,4 @@
-# [SMART PARKING Angular Web Application Project]
+# SMART PARKING Angular Web Application Project
 
 
 
