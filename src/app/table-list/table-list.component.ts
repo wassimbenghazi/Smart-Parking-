@@ -1,22 +1,15 @@
-import { Component, OnInit,Inject } from '@angular/core';
-import{Matricule} from '../models/matricule-models';
+import { Component, OnInit,Inject, AfterViewInit } from '@angular/core';
+import{LicensePlate} from '../models/LicensePlate-models';
 import{User} from '../models/users-models';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
-var Users: User[] = [
-  {id: 1, name: 'Hamdi', lastname: 'neji', email: 'Hamdi@gmail.com', cin:11111111,num:55555555555},
-  {id: 2, name: 'wassim', lastname: 'benghazi', email: 'He@hahah.com',cin:11111111,num:55555555555},
-  {id: 3, name: 'raouf', lastname: 'kioua', email: 'raouf@lj.com',cin:11111111,num:55555555555},
-  {id: 4, name: 'riadh',lastname: 'rached', email: 'Be@ja.cee',cin:11111111,num:55555555555},
-  {id: 5, name: 'safwen',lastname: 'ben mlaaeb', email: 'Be@ja.cee',cin:11111111,num:55555555555}
-  
-]
+import {AngularFireDatabase, AngularFireList} from '@angular/fire/database'
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatTableDataSource } from '@angular/material';
+import { ActionSequence } from 'protractor';
+import { DataSource } from '@angular/cdk/table';
 
-var Matricules: Matricule[] = [
-  {id: 1,  idMat: 1, car: 'marcedes', mat:11111111},
-  {id: 2,  idMat: 2, car: 'bmw',mat:55555555555},
-  {id: 3,  idMat: 3, car: 'golf',mat:55555555555},
-  {id: 4, idMat: 4, car: 'clio',mat:55555555555},
-  {id: 5, idMat: 5, car: 'ovetto 7amra',mat:55555555555},
+
+var Matricules: LicensePlate[] = [
+  {id_U: 1,  id_L: 1, type_Car: 'marcedes', nb_L:11111111, img_Li_Url:''},
+  
 ]
 @Component({
   selector: 'app-table-list',
@@ -25,35 +18,79 @@ var Matricules: Matricule[] = [
 })
 
 
-export class TableListComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
-  element:Matricule={id: 1,  idMat: 1, car: 'marcedes', mat:11111111};
+export class TableListComponent implements OnInit ,AfterViewInit {
+
+  itemList: AngularFireList<any>;
+  Users=[]
+
+  constructor(public dialog: MatDialog, public db:AngularFireDatabase) {
+
+    this.itemList = db.list("Users")
+    
+    
+  }
+ loadData(){
+  this.itemList.snapshotChanges().subscribe(
+    actions =>{
+      actions.forEach(action=>{
+       let y=action.payload.toJSON()
+       y['$key'] = action.key
+       y={$key: 2, name: y['name'], lastname: y['lastname'], email: y['email'], cin:y['cin'],phone:y['phone'], type_U:y['type_U'],password:y['password']}
+       this.Users.push( y as User  )
+       this.dataSource = this.Users
+       
+      })
+      
+    }
+  )
+  return this.Users
+ }
+
+
+  element:LicensePlate={id_U: 1,  id_L: 1, type_Car: 'marcedes', nb_L:11111111, img_Li_Url:''};
   displayedColumns: string[] = ['id', 'name', 'lastname', 'email','cin','num','action'];
-  dataSource = Users;
-  user:User={id: 1, name: 'Hydrogen', lastname: '1.0079', email: 'Hamdi@haiohaa.ce', cin:11111111,num:55555555555};
+  dataSource:User[] 
+
+  
+  
    isShown : boolean = false;
    id: number;
    idMat: number;
    car: string;
    mat: number;
-  ngOnInit() {}
- 
+  ngOnInit() {console.log(this.Users)
+     }
+   
+  ngAfterViewInit() {
+      this.loadData()
+      this.dataSource
+ }
+
     close(){
      this.isShown= false;} 
 
 
-     openDialog( data1): void {
+     openDialog( data1): void {console.log(this.Users)
       
-      const d : number=data1.id;
-      this.element=Matricules.find(x=>x.id==d);
+      const d : number=data1.$key;
+      this.element=Matricules.find(x=>x.id_U==d);
       const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
         width: '450px',
-        data: {id: this.element.id, idMat: this.element.idMat, car: this.element.car,mat:this.element.mat,data1}
+        data: {id: this.element.id_U, idMat: this.element.id_L, car: this.element.type_Car,mat:this.element.nb_L,data1}
       });
   
       
     }
 }
+
+
+
+
+
+
+
+
+
 export interface DialogData {
   id: number;
   idMat: number;

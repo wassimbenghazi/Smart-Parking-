@@ -1,8 +1,11 @@
 export interface User {
     name: string;
-    id: number;
+    $key: number;
     lastname: string;
     email: string;
     cin: number;
-    num: number;
+    phone: number;
+    type_U:string;
+    password:string;
+  
   };

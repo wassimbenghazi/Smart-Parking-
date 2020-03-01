@@ -15,6 +15,8 @@ import { AgmCoreModule } from "@agm/core";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { MatDialogModule } from "@angular/material";
 import { AngularFireModule } from '@angular/fire';
+import{AngularFireAuthModule} from '@angular/fire/auth';
+import{AngularFireDatabaseModule} from '@angular/fire/database';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
@@ -22,6 +24,8 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
     FormsModule,
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
