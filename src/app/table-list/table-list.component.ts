@@ -1,6 +1,6 @@
 import { Component, OnInit,Inject, AfterViewInit } from '@angular/core';
-import{LicensePlate} from '../models/LicensePlate-models';
-import{User} from '../models/users-models';
+import {LicensePlate} from '../models/LicensePlate-models';
+import {User} from '../models/users-models';
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { ActionSequence } from 'protractor';

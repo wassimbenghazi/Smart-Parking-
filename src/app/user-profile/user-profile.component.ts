@@ -27,36 +27,42 @@ export class UserProfileComponent implements OnInit {
                    type_U:null, 
                    password:null
                   };
-   
-  User = new FormGroup({
-    id_U: new FormControl(null),
-    name: new FormControl(null),
-    lastname: new FormControl(null),
-    email:new FormControl('', [
-                               Validators.required,
-                              Validators.email,
-                              ]) ,
-    cin: new FormControl(null),
-    phone: new FormControl(null),
-    type_U : new FormControl("client"),
-    password: new FormControl(null)
+                  
 
- });
      itemList: AngularFireList<any>;
-  
+     User:FormGroup;
   constructor(public db:AngularFireDatabase, private router:Router) {
     this.itemList = db.list("Users")
    }
 
   
-  ngOnInit() {}
+  ngOnInit() {
+    this.User = new FormGroup({
+      id_U: new FormControl(null),
+      name: new FormControl(null),
+      lastname: new FormControl(null, [Validators.maxLength(80)]),
+      email:new FormControl('', [
+                                 Validators.required,
+                                Validators.email,
+                                ]) ,
+      cin: new FormControl(null, [Validators.maxLength(8),
+                                  Validators.minLength(8)]),
+      phone: new FormControl(null, [Validators.maxLength(8),
+                                    Validators.minLength(8)]),
+      type_U : new FormControl("client"),
+      password: new FormControl(null,[Validators.minLength(8)])
+  
+   });
+
+  }
 
   // Submit function 
   data:any
   onClickSubmit(data) {
     this.MyUser = data;
+    console.log(data)
     this.itemList.push({
-                      id_U: this.MyUser.$key,
+                     
                       name: this.MyUser.name, 
                       lastname: this.MyUser.lastname,
                       email: this.MyUser.email,

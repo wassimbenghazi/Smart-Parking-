@@ -13,6 +13,11 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
+    path: "login",
+    component:LoginComponent,
+    pathMatch: "full"
+  },
+  {
     path: "",
     component: AdminLayoutComponent,
     children: [
@@ -23,7 +28,7 @@ const routes: Routes = [
       }
     ]
   },
-  { path: "**", redirectTo: "", pathMatch: "full" }
+  { path: "**", component:PageNotFoundComponent, pathMatch: "full" }
 ];
 
 @NgModule({
