@@ -5,16 +5,25 @@ import { Routes, RouterModule } from "@angular/router";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { LoginComponent } from "./login/login.component";
+import { SignupComponent } from "./signup/signup.component";
+import { AuthGuard } from "./auth/auth.guard";
+import { LoginGuard } from "./auth/login.guard";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "admin/user-profile",
-    pathMatch: "full"
+    redirectTo: "login",
+    pathMatch: "full",
+    
   },
   {
     path: "login",
-    component:LoginComponent,
+    component:LoginComponent, canActivate:[LoginGuard],
+    pathMatch: "full"
+  },
+  {
+    path: "register", canActivate:[LoginGuard],
+    component:SignupComponent,
     pathMatch: "full"
   },
   {
@@ -22,7 +31,8 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       {
-        path: "admin",
+        path: "admin", canActivate:[AuthGuard]
+        ,data: {roles: ["user", "admin"]},
         loadChildren:
           "./layouts/admin-layout/admin-layout.module#AdminLayoutModule"
       }

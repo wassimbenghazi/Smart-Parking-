@@ -12,18 +12,16 @@
         />
       </div>
 
-      <!-- Login Form -->
-      <form (ngSubmit)="login(loginForm.value)" [formGroup]="loginForm">
-        <p>Login with Email and Password.</p>
-        
-        <label for="email">Email:</label> <br>
-        <input type="email" name="email"  formControlName="email">
-      
+      <!-- Register Form -->
+      <form (ngSubmit)="signup(signUpForm.value)" [formGroup]="signUpForm">
+        <p>Signup with Email and Password.</p>  
+        <label for="email">Email:</label><br>
+        <input type="email" name="email" formControlName="email">
       
         <label for="password">Password:</label>
         <input type="password" name="password" formControlName="password">
       
-        <input type="submit" [disabled]="!loginForm.valid" value="Log In">
+        <input type="submit" [disabled]="!signUpForm.valid" value="Sign Up">
       </form> 
 
       <!-- Remind Passowrd -->
@@ -31,8 +29,8 @@
         <a
           routerLinkActive="active"
           class="underlineHover"
-          [routerLink]="['/register']"
-          >Register</a
+          [routerLink]="['/login']"
+          >Login </a
         >
       </div>
     </div>

@@ -20,6 +20,8 @@ import{AngularFireDatabaseModule} from '@angular/fire/database';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { FirebaseService } from "./firebase.service";
+import { SignupComponent } from './signup/signup.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -42,6 +44,7 @@ import { environment } from '../environments/environment';
     AdminLayoutComponent,
     PageNotFoundComponent,
     LoginComponent,
+    SignupComponent,
   
   ],
   
