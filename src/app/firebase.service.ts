@@ -68,9 +68,9 @@ export class FirebaseService {
             //setUserStatus
             this.setUserStatus(this.currentUser)
             if(userRef.data().role !== "admin") {
-              this.router.navigate(["/"]);
+              this.router.navigate(["/admin/user-profile"]);
             }else{
-              this.router.navigate(["/"]);
+              this.router.navigate(["/admin/user-profile"]);
             }
           })
         })

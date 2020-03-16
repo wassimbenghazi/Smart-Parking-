@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FirebaseService } from "app/firebase.service";
 
 declare const $: any;
 declare interface RouteInfo {
@@ -12,7 +13,8 @@ export const ROUTES: RouteInfo[] = [
     path: "/admin/user-profile",
     title: "add a user",
     icon: "person",
-    class: ""
+    class: "",
+    
   },
   {
     path: "/admin/table-list",
@@ -25,7 +27,8 @@ export const ROUTES: RouteInfo[] = [
     title: "Notifications",
     icon: "notifications",
     class: ""
-  }
+  },
+ 
 ];
 
 @Component({
@@ -36,7 +39,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() {}
+  constructor(private firebaseService:FirebaseService) {}
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -47,4 +50,5 @@ export class SidebarComponent implements OnInit {
     }
     return true;
   }
+  logout(){this.firebaseService.logOut();}
 }
