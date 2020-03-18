@@ -5,6 +5,7 @@ import {AngularFireDatabase, AngularFireList} from '@angular/fire/database'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { ActionSequence } from 'protractor';
 import { DataSource } from '@angular/cdk/table';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 var Matricules: LicensePlate[] = [
@@ -23,28 +24,31 @@ export class TableListComponent implements OnInit ,AfterViewInit {
   itemList: AngularFireList<any>;
   Users=[]
 
-  constructor(public dialog: MatDialog, public db:AngularFireDatabase) {
+  constructor(public dialog: MatDialog, public db:AngularFireDatabase,private firestore: AngularFirestore) {
 
     this.itemList = db.list("Users")
     
     
   }
- loadData(){
-  this.itemList.snapshotChanges().subscribe(
-    actions =>{
-      actions.forEach(action=>{
-       let y=action.payload.toJSON()
-       y['$key'] = action.key
-       y={$key: 2, name: y['name'], lastname: y['lastname'], email: y['email'], cin:y['cin'],phone:y['phone'], type_U:y['type_U'],password:y['password']}
-       this.Users.push( y as User  )
-       this.dataSource = this.Users
-       
-      })
-      
-    }
-  )
-  return this.Users
- }
+  loadData(){
+    this.firestore.collection("users").ref.where("role", "==", "user").onSnapshot(snap=>{ console.log(snap)
+      snap.forEach(userRef => {
+        console.log("userRef", userRef.data());})})
+    this.itemList.snapshotChanges().subscribe(
+      actions =>{
+        actions.forEach(action=>{
+         let y=action.payload.toJSON()
+         y['$key'] = action.key
+         y={$key: 2, name: y['name'], lastname: y['lastname'], email: y['email'], cin:y['cin'],phone:y['phone'], type_U:y['type_U'],password:y['password']}
+         this.Users.push( y as User  )
+         this.dataSource = this.Users
+         
+        })
+        
+      }
+    )
+    return this.Users
+   }
 
 
   element:LicensePlate={id_U: 1,  id_L: 1, type_Car: 'marcedes', nb_L:11111111, img_Li_Url:''};

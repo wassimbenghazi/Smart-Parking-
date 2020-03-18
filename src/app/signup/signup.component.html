@@ -14,12 +14,35 @@
 
       <!-- Register Form -->
       <form (ngSubmit)="signup(signUpForm.value)" [formGroup]="signUpForm">
-        <p>Signup with Email and Password.</p>  
+       
+        <div class="row" style="margin-left: 24px;">
+          <div class="col-md-5">
+            <label for="name">Name:</label>
+              <input type="text" name="name" required  formControlName="name" >
+          </div>
+          <div class="col-md-5">
+            <label for="lastname">Last Name:</label>
+              <input type="text" name="lastname"  required  formControlName="lastname" >
+           </div>
+        </div>
+
         <label for="email">Email:</label><br>
         <input type="email" name="email" formControlName="email">
       
         <label for="password">Password:</label>
         <input type="password" name="password" formControlName="password">
+        <div class="row" style="margin-left: 24px;">
+          <div class="col-md-5">
+            <label for="cin">CIN:</label>
+              <input  type="number"  name="cin" required formControlName="cin">
+         
+          </div>
+          <div class="col-md-5">
+            <label for="phone">phone:</label>
+              <input   type="number" size="8" name="phone" required formControlName="phone">
+          
+          </div>
+      </div>
       
         <input type="submit" [disabled]="!signUpForm.valid" value="Sign Up">
       </form> 

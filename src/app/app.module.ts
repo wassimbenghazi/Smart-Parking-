@@ -22,6 +22,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { FirebaseService } from "./firebase.service";
 import { SignupComponent } from './signup/signup.component';
+import { AdminAddCarComponent } from './admin-add-car/admin-add-car.component';
+import { UserReservationComponent } from './user-reservation/user-reservation.component';
+import { UserContactComponent } from './user-contact/user-contact.component';
+import { AdminContactComponent } from './admin-contact/admin-contact.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -45,6 +49,10 @@ import { SignupComponent } from './signup/signup.component';
     PageNotFoundComponent,
     LoginComponent,
     SignupComponent,
+    AdminAddCarComponent,
+    UserReservationComponent,
+    UserContactComponent,
+    AdminContactComponent,
   
   ],
   

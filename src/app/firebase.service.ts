@@ -23,7 +23,7 @@ export class FirebaseService {
 
 
 
-  signUp(email:string, password:string){
+  signUp(email:string, password:string, name:string, lastname:string,cin:number,phone:number){
   
     
     this.afAuth.auth.createUserWithEmailAndPassword(email, password)
@@ -33,6 +33,10 @@ export class FirebaseService {
         id: userResponse.user.uid,
         username: userResponse.user.email,
         role: "user",
+        name:name,
+        lastname:lastname,
+        cin:cin,
+        phone:phone
        }
        
        //add the user to the database
@@ -43,7 +47,13 @@ export class FirebaseService {
           console.log(x.data());
           this.currentUser = x.data();
           this.setUserStatus(this.currentUser);
-          this.router.navigate(["/"]);
+          if(x.data().role !== "admin") {
+            this.router.navigate(["/admin/user-profile"]);
+          }else{
+            this.router.navigate(["/admin/user-profile"]);
+          }
+          
+         
         })
        }).catch(err => {
          console.log(err);

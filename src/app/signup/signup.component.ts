@@ -14,11 +14,15 @@ export class SignupComponent implements OnInit {
   public signUpForm = new FormGroup({
     email: new FormControl('',  Validators.required),
     password: new FormControl('',  Validators.required),
+    name: new FormControl('',  Validators.required),
+    lastname: new FormControl('',  Validators.required),
+    cin: new FormControl('',  Validators.required),
+    phone: new FormControl('',  Validators.required),
    
   }); 
   
   signup(formData: FormData){
-    this.firebaseService.signUp(formData["email"], formData["password"]);
+    this.firebaseService.signUp(formData["email"], formData["password"], formData["name"], formData["lastname"],formData["cin"] ,formData["phone"]);
   }
 
   ngOnInit() {
