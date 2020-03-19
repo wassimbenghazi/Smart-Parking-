@@ -31,7 +31,7 @@ export class FirebaseService {
        // add the user to the "users" database
        let user = {
         id: userResponse.user.uid,
-        username: userResponse.user.email,
+        email: userResponse.user.email,
         role: "user",
         name:name,
         lastname:lastname,
@@ -71,7 +71,7 @@ export class FirebaseService {
       
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user)=>{
-        this.firestore.collection("users").ref.where("username", "==", user.user.email).onSnapshot(snap =>{
+        this.firestore.collection("users").ref.where("email", "==", user.user.email).onSnapshot(snap =>{
           snap.forEach(userRef => {
             console.log("userRef", userRef.data());
             this.currentUser = userRef.data();

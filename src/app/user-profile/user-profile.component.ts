@@ -18,14 +18,15 @@ export class UserProfileComponent implements OnInit {
 
     matcher = new MyErrorStateMatcher();
   /**/
-  MyUser: User =  {$key: null,
+  MyUser: User =  {id: null,
                    name: null, 
                    lastname: null,
                    email: null,
                    cin:null,
                    phone:null, 
                    type_U:null, 
-                   password:null
+                   
+                   role:"user"
                   };
                   
 
@@ -69,7 +70,7 @@ export class UserProfileComponent implements OnInit {
                       cin:this.MyUser.cin,
                       phone:this.MyUser.phone, 
                       type_U:this.MyUser.type_U, 
-                      password:this.MyUser.password
+                      
                       
                     })
           this.router.navigate(['/admin/table-list']) ;

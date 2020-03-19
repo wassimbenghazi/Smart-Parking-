@@ -33,26 +33,35 @@ export class TableListComponent implements OnInit ,AfterViewInit {
   loadData(){
     this.firestore.collection("users").ref.where("role", "==", "user").onSnapshot(snap=>{ console.log(snap)
       snap.forEach(userRef => {
-        console.log("userRef", userRef.data());})})
-    this.itemList.snapshotChanges().subscribe(
-      actions =>{
-        actions.forEach(action=>{
-         let y=action.payload.toJSON()
-         y['$key'] = action.key
-         y={$key: 2, name: y['name'], lastname: y['lastname'], email: y['email'], cin:y['cin'],phone:y['phone'], type_U:y['type_U'],password:y['password']}
-         this.Users.push( y as User  )
-         this.dataSource = this.Users
-         
+          console.log("userRef", userRef.data());
+          this.Users.push( userRef.data() as User  )
+          console.log(this.Users);
+          this.dataSource = this.Users
+          })
         })
+   
+   
+   
+    //     this.itemList.snapshotChanges().subscribe(
+    //   actions =>{
+    //     actions.forEach(action=>{
+    //      let y=action.payload.toJSON()
+    //      y['$key'] = action.key
+    //      y={$key: 2, name: y['name'], lastname: y['lastname'], email: y['email'], cin:y['cin'],phone:y['phone'], type_U:y['type_U'],password:y['password']}
+    //      this.Users.push( y as User  )
+    //      this.dataSource = this.Users
+         
+    //     })
         
-      }
-    )
-    return this.Users
+    //   }
+    // )
+   
+    return this.dataSource
    }
 
 
   element:LicensePlate={id_U: 1,  id_L: 1, type_Car: 'marcedes', nb_L:11111111, img_Li_Url:''};
-  displayedColumns: string[] = ['id', 'name', 'lastname', 'email','cin','num','action'];
+  displayedColumns: string[] = ['name', 'lastname', 'email','cin','phone','action'];
   dataSource:User[] 
 
   
@@ -66,25 +75,27 @@ export class TableListComponent implements OnInit ,AfterViewInit {
      }
    
   ngAfterViewInit() {
-      this.loadData()
-      this.dataSource
+      
+      this.dataSource=this.loadData()
  }
 
-    close(){
-     this.isShown= false;} 
+  close(){
+    this.isShown= false;
+  } 
 
 
-     openDialog( data1): void {console.log(this.Users)
-      
-      const d : number=data1.$key;
-      this.element=Matricules.find(x=>x.id_U==d);
-      const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-        width: '450px',
-        data: {id: this.element.id_U, idMat: this.element.id_L, car: this.element.type_Car,mat:this.element.nb_L,data1}
-      });
-  
-      
-    }
+  openDialog( data1): void {
+    console.log(this.Users)
+    
+    const d : number=data1.id;
+    this.element=Matricules.find(x=>x.id_U==d);
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '450px',
+      data: {id: this.element.id_U, idMat: this.element.id_L, car: this.element.type_Car,mat:this.element.nb_L,data1}
+    });
+
+    
+  }
 }
 
 
