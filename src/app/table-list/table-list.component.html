@@ -62,7 +62,7 @@
                       <button mat-raised-button matTooltip="Modifier Client" [matTooltipPosition]="'above'"> <i style="margin-left: 5px;"  class="material-icons">
                         create
                         </i></button>
-                      <button mat-raised-button matTooltip="Supprimer Client" [matTooltipPosition]="'above'">
+                      <button mat-raised-button  (click)="deleteUser(element)"matTooltip="Supprimer Client" [matTooltipPosition]="'above'" >
                          <i style="margin-left: 5px;" class="material-icons">
                           clear
                           </i>

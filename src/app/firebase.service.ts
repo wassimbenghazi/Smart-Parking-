@@ -1,8 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {Router} from "@angular/router";
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore , AngularFirestoreDocument, AngularFirestoreCollection} from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { User } from './models/users-models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class FirebaseService {
   public currentUser: any;
   public userStatus: string;
   public userStatusChanges: BehaviorSubject<string> = new BehaviorSubject<string>(this.userStatus);
-  
+  public userDoc:AngularFirestoreDocument<User>
 
   setUserStatus(userStatus: any): void {
     this.userStatus = userStatus;
@@ -129,5 +130,13 @@ export class FirebaseService {
       }
     })
   }
-
+  deleteUser(user:User){
+    this.userDoc= this.firestore.doc(`users/lF7UaGNMFsS0XoNb8tlK`)
+    this.userDoc.delete()
+    // this.firestore.collection("users").remove()
+      // snap.forEach(userRef => {userRef.delete()})})
+    // this.firestore.collection("users").doc(user.id).delete()
+   
+    // var user = this.afAuth.auth().currentUser;
+  }
 }

@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatTableDataSource } from '@a
 import { ActionSequence } from 'protractor';
 import { DataSource } from '@angular/cdk/table';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { FirebaseService } from 'app/firebase.service';
 
 
 var Matricules: LicensePlate[] = [
@@ -24,7 +25,7 @@ export class TableListComponent implements OnInit ,AfterViewInit {
   itemList: AngularFireList<any>;
   Users=[]
 
-  constructor(public dialog: MatDialog, public db:AngularFireDatabase,private firestore: AngularFirestore) {
+  constructor(public dialog: MatDialog, public db:AngularFireDatabase,private firestore: AngularFirestore,private firebaseService: FirebaseService) {
 
     this.itemList = db.list("Users")
     
@@ -77,6 +78,10 @@ export class TableListComponent implements OnInit ,AfterViewInit {
   ngAfterViewInit() {
       
       this.dataSource=this.loadData()
+ }
+ deleteUser(userToDelete){
+   this.firebaseService.deleteUser(userToDelete);
+   
  }
 
   close(){
