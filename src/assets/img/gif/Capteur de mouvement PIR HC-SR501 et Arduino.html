@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://www.robot-maker.com/shop/blog/27_Connecter-capteur-Infrarouge-HCSR501.html -->
+<html lang="fr-fr" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+<title>Capteur de mouvement PIR HC-SR501 et Arduino</title>					<meta name="description" content="Le blog de l&#39;équipe de Robot Maker vous permet de vous plonger dans l&#39;univers des Makers. Au travers de différents articles découvrez de nombreux tutoriels Arduino, des fiches pratiques et bien d&#39;autres goodies.">
+							<meta name="keywords" content="capteur,infrarouge,hcsr501,tutoriel">
+				<meta name="generator" content="PrestaShop">
+	<meta name="robots" content="index,follow">
+		<meta name="viewport" content="width=device-width, minimum-scale=0.25, maximum-scale=1.6, initial-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<link rel="icon" type="image/vnd.microsoft.icon" href="https://www.robot-maker.com/shop/img/favicon.ico?1547008628">
+		<link rel="shortcut icon" type="image/x-icon" href="https://www.robot-maker.com/shop/img/favicon.ico?1547008628">
+									<link rel="stylesheet" href="./Capteur de mouvement PIR HC-SR501 et Arduino_files/v_108_99f8bcbba99e4d61aa3fd987ce1b3045_all.css" type="text/css" media="all">
+
+										<script src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/all.js.téléchargement" async="" crossorigin="anonymous"></script><script type="text/javascript" async="" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/ec.js.téléchargement"></script><script id="twitter-wjs" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/widgets.js.téléchargement"></script><script id="facebook-jssdk" async="" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/all.js(1).téléchargement"></script><script type="text/javascript" charset="utf-8" async="" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/loader.js.téléchargement"></script><script async="" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/analytics.js.téléchargement"></script><script type="text/javascript">
+var CUSTOMIZE_TEXTFIELD = 1;
+var FancyboxI18nClose = 'Fermer';
+var FancyboxI18nNext = 'Suivant';
+var FancyboxI18nPrev = 'Pr&eacute;c&eacute;dent';
+var added_to_wishlist = 'Le produit a été ajouté à votre liste.';
+var ajax_allowed = false;
+var ajaxsearch = true;
+var baseDir = 'https://www.robot-maker.com/shop/';
+var baseUri = 'https://www.robot-maker.com/shop/';
+var blocksearch_type = 'block';
+var contentOnly = false;
+var currency = {"id":1,"name":"Euro","iso_code":"EUR","iso_code_num":"978","sign":"\u20ac","blank":"1","conversion_rate":"1.000000","deleted":"0","format":"2","decimals":"1","active":"1","prefix":"","suffix":" \u20ac","id_shop_list":null,"force_id":false};
+var currencyBlank = 1;
+var currencyFormat = 2;
+var currencyRate = 1;
+var currencySign = '€';
+var customizationIdMessage = 'Personnalisation';
+var delete_txt = 'Supprimer';
+var displayList = true;
+var freeProductTranslation = 'Offert !';
+var freeShippingTranslation = 'Livraison gratuite !';
+var generated_date = 1586348710;
+var hasDeliveryAddress = false;
+var highDPI = false;
+var id_lang = 1;
+var img_dir = 'https://www.robot-maker.com/shop/themes/default-bootstrap/img/';
+var instantsearch = false;
+var isGuest = 0;
+var isLogged = 0;
+var isMobile = false;
+var loggin_required = 'Vous devez être connecté pour gérer votre liste d\'envies.';
+var mywishlist_url = 'https://www.robot-maker.com/shop/module/blockwishlist/mywishlist';
+var page_name = 'module-smartblog-details';
+var placeholder_blocknewsletter = 'Enter your e-mail';
+var priceDisplayMethod = 0;
+var priceDisplayPrecision = 2;
+var quickView = true;
+var removingLinkText = 'supprimer cet article du panier';
+var roundMode = 2;
+var search_url = 'https://www.robot-maker.com/shop/recherche';
+var static_token = 'd731bc3fdad7aa63009bba329f19fa38';
+var toBeDetermined = 'To be determined';
+var token = '5f1ee2223a6063991c5a00b54a71780d';
+var usingSecureMode = true;
+var wishlistProductsIds = false;
+</script>
+
+						<script type="text/javascript" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/v_104_0509d71b3d74be089e9cfece2169201f.js.téléchargement"></script>
+							
+			<script type="text/javascript">
+				(window.gaDevIds=window.gaDevIds||[]).push('d6YPbH');
+				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+				ga('create', 'UA-78737100-1', 'auto');
+				ga('require', 'ec');</script>
+
+<script type="text/javascript" data-keepinline="true">
+	// instantiate object
+	
+		var oGsr = {};
+		var bt_msgs = {"delay":"Vous n'avez pas rempli un entier l'option d\u00e9calage","fbId":"Vous n'avez pas rempli un entier l'option Facebook app ID","fbsecret":"Vous n'avez pas rempli l'option Facebook secret","reviewDate":"Vous n'avez pas rempli la date de l'avis","title":"Vous n'avez pas rempli le titre","comment":"Vous n'avez pas rempli le commentaire","report":"Vous n'avez pas rempli le commentaire associ\u00e9 \u00e0 l'avis abusif","rating":"Vous n'avez pas s\u00e9lectionn\u00e9 de note pour l'avis","checkreview":"Vous n'avez pas s\u00e9lectionn\u00e9 d'avis","email":"Vous n'avez pas rempli votre adresse e-mail","status":"Vous n'avez pas s\u00e9lectionn\u00e9 de statut","vouchercode":"Vous n'avez pas rempli le code de r\u00e9duction","voucheramount":"Vous avez laiss\u00e9 0 comme valeur pour le bon de r\u00e9duction","voucherminimum":"Le montant minimum n'est pas un num\u00e9rique","vouchermaximum":"La quantit\u00e9 maximum n'est pas un num\u00e9rique","vouchervalidity":"Vous avez laiss\u00e9 0 pour la dur\u00e9e de validit\u00e9","emailTitle":{"1":"Vous n'avez pas rempli le titre ou le texte avec la langue Fran\u00e7ais (French). Cliquez sur la liste d\u00e9roulante des langues afin de remplir correctement les champs dans chaque langue"},"emaillCategory":{"1":"Vous n'avez pas rempli le label de la cat\u00e9gorie avec la langue Fran\u00e7ais (French). Cliquez sur la liste d\u00e9roulante des langues afin de remplir correctement les champs dans chaque langue"},"emaillProduct":{"1":"Vous n'avez pas rempli le label du produit avec la langue Fran\u00e7ais (French). Cliquez sur la liste d\u00e9roulante des langues afin de remplir correctement les champs dans chaque langue"},"emaillSentence":{"1":"Vous n'avez pas rempli la phrase personnalis\u00e9 du corps de tetxe avec la langue Fran\u00e7ais (French). Cliquez sur la liste d\u00e9roulante des langues afin de remplir correctement les champs dans chaque langue"}};
+		var bt_sImgUrl = '/shop/modules/gsnippetsreviews/views/img/';
+		var bt_sWebService = '/shop/modules/gsnippetsreviews/ws-gsnippetsreviews.php';
+		var sGsrModuleName = 'gsr';
+		var bt_aFancyReviewForm = {};
+		var bt_aFancyReviewTabForm = {};
+		var bt_oScrollTo = {};
+		bt_oScrollTo.execute = false;
+		var bt_oUseSocialButton = {};
+		var bt_oActivateReviewTab = {};
+		bt_oActivateReviewTab.run = false;
+		var bt_oDeactivateReviewTab = {};
+		bt_oDeactivateReviewTab.run = false;
+		var bt_aReviewReport = new Array();
+		var bt_oCallback = {};
+		bt_oCallback.run = false;
+		var bt_aStarsRating = new Array();
+		var bt_oBxSlider = {};
+		bt_oBxSlider.run = false;
+	
+		
+		
+		
+
+		
+		
+
+		
+		
+		
+		
+	
+</script>
+<link href="./Capteur de mouvement PIR HC-SR501 et Arduino_files/css" rel="stylesheet" type="text/css" media="all">
+ 
+
+		<link rel="stylesheet" href="./Capteur de mouvement PIR HC-SR501 et Arduino_files/css(1)" type="text/css" media="all">
+		<!--[if IE 8]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+								<link rel="stylesheet" type="text/css" media="screen,print" id="mainStyleSheet" href="./Capteur de mouvement PIR HC-SR501 et Arduino_files/style2.css">
+<!--[if lte IE 7]>
+<style type="text/css">
+ul li{
+	display:inline;
+	/*float:left;*/
+}
+</style>
+<![endif]-->
+
+<script type="text/javascript" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/jquery.min.js.téléchargement"></script>
+<script>
+    jq142 = jQuery.noConflict(true);
+</script>
+<script type="text/javascript" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/jquery.hoverIntent.minified.js.téléchargement"></script>
+<script type="text/javascript" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/jquery.dcmegamenu.1.2.js.téléchargement"></script>
+
+<script type="text/javascript">
+$(document).ready(function($){
+	$('#mega-menu-tut').dcMegaMenu({
+		rowItems: '5',
+		speed: 'slow'
+	});
+});
+</script>
+<link href="./Capteur de mouvement PIR HC-SR501 et Arduino_files/menu.css" rel="stylesheet" type="text/css">
+
+
+
+	<style type="text/css">.fancybox-margin{margin-right:17px;}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#043b87;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}</style></head>
+		<body id="ipboard_body" style="" data-gr-c-s-loaded="true"><div id="chat-application" style="z-index: 10000000; background: transparent; overflow: hidden; display: block; margin: 0px; padding: 0px; border: 0px; transition: none 0s ease 0s; position: fixed; right: 10px; bottom: -4px; width: 230px; height: 45px;"><iframe id="chat-application-iframe" frameborder="no" style="z-index: 10000001; background: transparent; overflow: hidden; position: relative; width: 100%; height: 100%; margin: 0px; border: none; min-width: inherit; max-width: inherit; min-height: inherit; max-height: inherit; transition: none 0s ease 0s;" __idm_frm__="203" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/saved_resource.html"></iframe></div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div>
+
+	
+	
+	
+	
+	
+		
+	
+	<!-- *********************************************************************** -->	
+
+		<p id="content_jump" class="hide"><a id="top"></a><a href="https://www.robot-maker.com/shop/blog/27_Connecter-capteur-Infrarouge-HCSR501.html#j_content" title="Aller au contenu" accesskey="m">Aller au contenu</a></p>
+		<div id="ipbwrapper">
+			<!-- ::: TOP BAR: Sign in / register or user drop down and notification alerts ::: -->
+			<div id="header_bar" class="clearfix">
+				<div class="main_width">
+					
+																<div class="nav">
+							<div class="container">
+								<div class="row">
+									<nav><div id="contact-link">
+	<a href="https://www.robot-maker.com/shop/nous-contacter" title="Contactez-nous">Contactez-nous</a>
+</div>
+	<span class="shop-phone">
+		<i class="icon-phone"></i> <strong>06 44 77 56 04</strong>
+	</span>
+<!-- Block user information module NAV  -->
+<div class="header_user_info">
+			<a class="login" href="https://www.robot-maker.com/shop/mon-compte" rel="nofollow" title="Identifiez-vous">
+			Connexion
+		</a>
+	</div>
+<!-- /Block usmodule NAV -->
+</nav>
+								</div>
+							</div>
+						</div>
+								</div></div>
+			<!-- ::: BRANDING STRIP: Logo and search box ::: -->
+			
+			
+			<!-- ::: MAIN CONTENT AREA ::: -->
+			<div id="content" class="clearfix">
+			<section clsas="fancy">
+						<div id="logo">
+						
+<a href="https://www.robot-maker.com/shop/57-livres-robotique" title="livres robotique"><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/logo-maker.jpg" alt="Robot-Maker.com"></a>						
+						
+					</div>
+  </section>
+				<!-- ::: NAVIGATION BREADCRUMBS ::: -->
+				
+				<noscript>
+					<div class='message error'>
+						<strong>Javascript désactivé détecté</strong>
+						<p>Vous avez actuellement le javascript qui est désactivé. Plusieurs fonctionnalités peuvent ne pas marcher. Veuillez réactiver le javascript pour accéder à toutes les fonctionnalités.</p>
+					</div>
+					<br />
+				</noscript>
+				<!-- ::: CONTENT ::: -->
+				
+<div id="board_index" class="ipsLayout ipsLayout_withright ipsLayout_largeright clearfix ">
+	
+		<!-- *********************************************************************** -->	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+					<div id="page">
+			
+			<div class="columns-container">
+				<div id="columns" class="container">
+											
+<!-- Breadcrumb -->
+<div class="breadcrumb clearfix">
+	<a class="home" href="https://www.robot-maker.com/shop/" title="retour à Accueil"><i class="icon-home"></i></a>
+			<span class="navigation-pipe">&gt;</span>
+					<span class="navigation_page">	<span itemscope="" itemtype="https://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="https://www.robot-maker.com/shop/blog.html">All Blog News</a></span></span>
+    <span class="navigation-pipe">
+    	&gt;
+    </span>
+    Capteur de mouvement PIR HC-SR501 et Arduino
+
+			</div>
+<!-- /Breadcrumb -->
+
+										<div id="slider_row" class="row">
+																	</div>
+					<div class="row">
+												<div id="left_column" class="column col-xs-12 col-sm-3"><!-- Block search module -->
+<div id="search_block_left" class="block exclusive">
+	<p class="title_block">Rechercher</p>
+	<form method="get" action="https://www.robot-maker.com/shop/recherche" id="searchbox">
+    	<label for="search_query_block">Rechercher un produit</label>
+		<p class="block_content clearfix" style="">
+			<input type="hidden" name="orderby" value="position">
+			<input type="hidden" name="controller" value="search">
+			<input type="hidden" name="orderway" value="desc">
+			<input class="search_query form-control grey ac_input" type="text" id="search_query_block" name="search_query" value="" autocomplete="off">
+			<button type="submit" id="search_button" class="btn btn-default button button-small"><span><i class="icon-search"></i></span></button>
+		</p>
+	</form>
+</div>
+<!-- /Block search module --><!-- Block categories module -->
+<div id="categories_block_left" class="block">
+	<h2 class="title_block">
+					Catégories
+			</h2>
+	<div class="block_content" style="">
+		<ul class="tree dynamized" style="display: block;">
+												
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/12-kits-robots" title="Les kits de robot à monter soi-même sont un excellent moyen de découvrir la...">
+		Kits robots
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/22-kit-robot-a-pattes" title="Catégorie regroupant l&#39;ensemble des kits de robots à pattes. Bipèdes, quadrupèdes,...">
+		Kit robot à pattes
+	</a>
+			<ul style="display: none;">
+												
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/23-kit-robot-quadrupede" title="">
+		Kit robot quadrupede
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/24-kit-robot-roulant" title="Catégorie regroupant l&#39;ensemble des kits de robots roulants. Robots à deux roues...">
+		Kit robot roulant
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/36-kits-debutants-arduino" title="Pour commencer à apprendre les bases de l’électronique et de la programmation, rien...">
+		Kits débutants Arduino
+	</a>
+	</li>
+
+																
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/13-cartes-programmables" title="Catégorie regroupant l&#39;ensemble des cartes électroniques programmables présentes sur...">
+		Cartes programmables
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<a href="https://www.robot-maker.com/shop/25-arduino-clones" title="L’énorme succès de l’Arduino vient entre autre de sa license “libre”. Le design du...">
+		Carte Arduino clone
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/26-arduino-officielles" title="">
+		Carte Arduino officielle
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/51-raspberry-pi" title="Catégorie contenant l&#39;ensemble des produits dédiés au Raspberry Pi ! ">
+		Raspberry Pi
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/14-shield" title="La plateforme Arduino offre une option intéressante : les Shield.  Il s’agit de...">
+		Shield
+	</a>
+	</li>
+
+																
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/15-capteurs" title="L&#39;ensemble des capteurs présent sur la boutique est regroupé dans cette catégorie....">
+		Capteurs
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<a href="https://www.robot-maker.com/shop/28-capteur-de-vision" title="">
+		Capteur de vision
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/29-capteur-distance" title="">
+		Capteur de distance
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/16-moteurs-et-actionneurs" title="">
+		Moteurs et actionneurs
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<a href="https://www.robot-maker.com/shop/30-moteurs-pas-a-pas" title="">
+		Moteur pas à pas
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/31-moteurs-cc" title="">
+		Moteur CC
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/32-servomoteurs" title="">
+		Servomoteur
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/17-drivers-d-actionneurs" title="Cette catégorique regroupe l&#39;ensemble des cartes électroniques de conversion de...">
+		Drivers variateurs et autre contrôleurs d'actionneurs
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<a href="https://www.robot-maker.com/shop/39-driver-moteur-pas-a-pas" title="">
+		Driver moteur pas à pas
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/40-driver-servomoteur" title="">
+		Driver servomoteur
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/41-driver-moteur-cc" title="">
+		Driver moteur CC
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/18-composants" title="">
+		Composants et accessoires robotique
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<a href="https://www.robot-maker.com/shop/42-veroboard-breadboard" title="">
+		Veroboard, breadboard
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/43-fils-nappes-de-fils-connecteurs" title="">
+		Fils, nappes de fils, connecteurs
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/44-interrupteurs-boutons-selecteurs" title="">
+		Interrupteurs, Boutons, Selecteurs
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/45-potentiometre" title="">
+		Potentiomètre et résistance variable
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/46-support-de-piles" title="">
+		Support de piles
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/19-accessoires-robotiques" title="Cette catégorie contient une multitude d&#39;accessoires liés à la robotique, écrans...">
+		Accessoires robotiques
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/61-led-lumiere-afficheur-ecran" title="LEDs, afficheurs 7 segments à LEDs, voltmètre à LEDs, écran LCD et autre systèmes...">
+		LED, Lumière, Afficheur, écran
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/63-circuits-integres-traversants-et-cms" title="Contient l&#39;ensembles de circuits intégrés vendu sur la boutique, à souder sur vos...">
+		Circuits Intégrés, Traversants et CMS
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/20-alimentation" title="">
+		Alimentation
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<a href="https://www.robot-maker.com/shop/47-convertisseur" title="">
+		Convertisseur
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/48-coupleur-adaptateur-de-piles" title="">
+		Coupleur, adaptateur de piles
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/50-batteries-et-piles" title="">
+		Batteries et piles
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/56-elements-mecaniques" title="Contient toute sorte de pièces mécaniques: roulements, coupleurs d&#39;axes, supports de...">
+		Eléments mécaniques
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/69-domotique" title="Retrouvez tout le matériel nécessaire pour domotiser votre maison ! Relais, Sonoff,...">
+		Domotique
+	</a>
+	</li>
+
+																
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/21-impression-3d" title="">
+		Impression 3D
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<a href="https://www.robot-maker.com/shop/37-imprimante-3d" title="">
+		Imprimante 3D
+	</a>
+	</li>
+
+																
+<li class="last">
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/38-filament-3d" title="Robot Maker fourni une gamme complète de filament, &lt;a...">
+		Filament 3D
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<a href="https://www.robot-maker.com/shop/58-filament-3d-abs" title="Toute notre gamme de filament   ABS :   ABS standard : 32 couleurs...">
+		Filament 3D ABS
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/59-filament-3d-pla" title="PLA standard : 34 couleurs disponibles              PLA...">
+		Filament 3D PLA
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/68-filamant-3d-petg" title="Filament PETG en bobine de 1Kg.  7 couleurs au choix :  ...">
+		Filamant 3D PETG
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/27-outillage" title="Cette catégorie regroupe l&#39;ensemble des outils, aussi bien les outils de mesure que...">
+		Outillage
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/35-produits-100-rembourses-" title="Dans le cadre de notre programme &quot;produits testés par les Makers&quot;, nous vous...">
+		Produits 100% remboursés *
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/54-produits-reconditionnes" title="Produits qui ne sont plus neuf, potentiellement hors de leurs emballages d&#39;origine,...">
+		Produits reconditionnés
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/53-cheque-cadeau" title="Vous souhaitez offrir un cadeau à un maker ou apprenti maker, mais ne connaissez pas...">
+		Chèque Cadeau
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/57-livres-robotique" title="Venez retrouver une sélection de livres spécialement choisis par nos soins pour...">
+		Livres robotique
+	</a>
+	</li>
+
+																
+<li>
+	<span class="grower CLOSE"> </span><a href="https://www.robot-maker.com/shop/60-produits-derives" title="Produits dérivés Robot Maker : T Shirt, Porte Clefs, Autocollants et autres objets...">
+		Produits dérivés
+	</a>
+			<ul style="display: none;">
+												
+<li>
+	<a href="https://www.robot-maker.com/shop/64-t-shirt" title="T shirt personnalisés Robot Maker. ">
+		T shirt 
+	</a>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/65-autocollant" title="Autocollants personnalisés Robot-Maker. ">
+		Autocollant
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/66-porte-clefs" title="Porte clefs personnalisés Robot Maker">
+		Porte clefs
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li>
+	<a href="https://www.robot-maker.com/shop/62-coupe-de-france-de-robotique" title="Produits pour la coupe de France de robotique. ">
+		Coupe de France de Robotique
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a href="https://www.robot-maker.com/shop/67-fin-de-serie" title="Produits vendus jusqu&#39;à épuisement du stock et non renouvelé.">
+		Fin de série
+	</a>
+	</li>
+
+									</ul>
+	</div>
+</div>
+<!-- /Block categories module -->
+<div id="htmlcontent_left">
+	<ul class="htmlcontent-home clearfix row">
+									<li class="htmlcontent-item-1 col-xs-12">
+														<a href="http://www.robot-maker.com/shop/blog/79_vendeur-robot-maker.html" class="item-link" title="Ouvrir une boutique">
+																		<img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/0032846b1602ae360579b17e2ea0c2aad12245c2_vendre.jpg" class="item-img img-responsive" title="Ouvrir une boutique" alt="Ouvrir une boutique" width="241" height="161">
+																													</a>
+									</li>
+			</ul>
+</div>
+<!-- MODULE Block cart -->
+	<div class="shopping_cart">
+		<a href="https://www.robot-maker.com/shop/commande" title="Voir mon panier" rel="nofollow">
+			<b>Panier</b>
+			<span class="ajax_cart_quantity unvisible">0</span>
+			<span class="ajax_cart_product_txt unvisible">Produit</span>
+			<span class="ajax_cart_product_txt_s unvisible">Produits</span>
+			<span class="ajax_cart_total unvisible">
+							</span>
+			<span class="ajax_cart_no_product">(vide)</span>
+					</a>
+					<div class="cart_block block exclusive">
+				<div class="block_content">
+					<!-- block list of products -->
+					<div class="cart_block_list expanded">
+												<p class="cart_block_no_products">
+							Aucun produit
+						</p>
+																		<div class="cart-prices">
+							<div class="cart-prices-line first-line">
+								<span class="price cart_block_shipping_cost ajax_cart_shipping_cost unvisible">
+																			 To be determined																	</span>
+								<span class="unvisible">
+									Livraison
+								</span>
+							</div>
+																					<div class="cart-prices-line last-line">
+								<span class="price cart_block_total ajax_block_cart_total">0,00 €</span>
+								<span>Total</span>
+							</div>
+													</div>
+						<p class="cart-buttons">
+							<a id="button_order_cart" class="btn btn-default button button-small" href="https://www.robot-maker.com/shop/commande" title="Commander" rel="nofollow">
+								<span>
+									Commander<i class="icon-chevron-right right"></i>
+								</span>
+							</a>
+						</p>
+					</div>
+				</div>
+			</div><!-- .cart_block -->
+			</div>
+
+
+<!-- /MODULE Block cart -->
+<div id="category_blog_block_left" class="block blogModule boxPlain">
+  <h2 class="sdstitle_block"><a href="https://www.robot-maker.com/shop/blog.html">Blog Robot Maker</a></h2>
+   <div class="block_content list-block">
+         <ul>
+	                                                    <li>
+                    <a href="https://www.robot-maker.com/shop/blog/category/1_Vie-boutique.html">Vie de la boutique</a>
+                </li>
+	                                                    <li>
+                    <a href="https://www.robot-maker.com/shop/blog/category/2_tutos.html">Tutoriels Arduino</a>
+                </li>
+	                                                    <li>
+                    <a href="https://www.robot-maker.com/shop/blog/category/3_forum.html">Sur le forum</a>
+                </li>
+	                                                    <li>
+                    <a href="https://www.robot-maker.com/shop/blog/category/5_materiel.html">Matériel et composants pour la robotique</a>
+                </li>
+	                                                    <li>
+                    <a href="https://www.robot-maker.com/shop/blog/category/6_tutos-raspberry-pi.html">Tutoriels Raspberry Pi</a>
+                </li>
+	                                                    <li>
+                    <a href="https://www.robot-maker.com/shop/blog/category/7_tutos-robotique-divers.html">Autres tutoriels</a>
+                </li>
+	                                                    <li>
+                    <a href="https://www.robot-maker.com/shop/blog/category/8_tutoriel-scratch-arduino.html">Tutoriels Scratch</a>
+                </li>
+	                                                    <li>
+                    <a href="https://www.robot-maker.com/shop/blog/category/9_associations-robotique.html">Associations Robotique</a>
+                </li>
+	                                                    <li>
+                    <a href="https://www.robot-maker.com/shop/blog/category/11_entreprendre.html">Entreprendre</a>
+                </li>
+	        </ul>
+   </div>
+</div>
+</div>
+																		<div id="center_column" class="center_column col-xs-12 col-sm-9">
+	
+<div itemtype="#" itemscope="" id="sdsblogArticle" class="blog-post">
+	
+    <h1 class="title_block_exclusive">Capteur de mouvement PIR HC-SR501 et Arduino</h1>
+    
+    <div itemprop="articleBody">
+    	    	 
+    	
+            		<div class="post-image">
+    			<img style=" margin: 0px 15px 15px 0px;" class="img-responsive" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/27-single-default.jpg" alt="Capteur de mouvement PIR HC-SR501 et Arduino">
+    		</div>
+    	    
+    	<div class="sdsarticle-des">
+    		<p><strong>Objectifs :&nbsp;</strong>Découvrir comment utiliser un capteur de mouvement PIR et ses applications.</p>
+<p><strong>Difficulté :</strong> 1/5</p>
+<p><strong>Temps d'exécution :</strong> 15 min</p>
+<p><strong>Matériel nécessaire :</strong></p>
+<ul>
+<li>Un&nbsp;<span style="text-decoration: underline;"><a href="http://www.robot-maker.com/shop/capteurs/121-hc-sr501.html">capteur PIR HC-SR501</a></span></li>
+<li>Une&nbsp;<span style="text-decoration: underline;"><a href="http://www.robot-maker.com/shop/arduino-clones/20-uno.html">carte arduino Uno</a></span></li>
+<li>3&nbsp;<span style="text-decoration: underline;"><a href="http://www.robot-maker.com/shop/accessoires-robotiques/44-nappe-de-40-fils-male-femelle.html">fils mâle femelle</a></span></li>
+</ul>
+<p></p>
+<p></p>
+<p>Le capteur de mouvent ou PIR ( )HC-SR501 que nous allons utiliser ensemble est un capteur capable de détecter les mouvements. Il détecte les rayonnements infrarouge dans son champ de vision et en déduit une présence ou un mouvement. Ce capteur peut servir dans de nombreuses applications notamment dans un système d'alarme.</p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/presentation-robot-ir.jpg" alt="robot capteur infrarouge" height="301" width="403"><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/presentation-capteur-ir.jpg" alt="" height="313" width="417"></p>
+<p></p>
+<p>Ci-dessus les exemples d'un robot et d'un allumage automatique qui utilise un capteur infrarouge.</p>
+<p>Pour commencer, voici des images du capteur HC-SR501 présent sur la boutique :</p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/capteur-HCSR501.jpg" alt="" height="362" width="604"></p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/capteur-infrarouge.jpg" alt="" height="361" width="602"></p>
+<p>Il dispose de deux trous de fixation pour pouvoir l'assembler à votre projet, c'est plutôt pratique.</p>
+<p></p>
+<h2>Fonctionnement du capteur de mouvements</h2>
+<p>Le capteur renvoie un signal qui possède deux états : un état bas (0 V) lorsque le capteur est au repos, et un état haut (3,3 V) si un mouvement est détecté.</p>
+<p>Quand un mouvement a été pris en compte, le signal passe à l'état haut et un délai est déclenché.&nbsp;Une fois que le délai est terminé, le signal retourne à l'état bas.</p>
+<p>Ce capteur infrarouge a la possibilité d'être paramétré par son utilisateur. Pour cela, il dispose de deux potentiomètres pour régler la distance de détection et la durée de l'état haut. Il y a aussi la possibilité de le configurer dans deux modes de fonctionnement grâce à un cavalier à placer entre deux broches.</p>
+<p></p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/potentiometre-capteur-ir.jpg" alt="" height="360" width="599"></p>
+<p></p>
+<p>Voici des images du signal émis par le capteur sur un oscilloscope pour illustrer ces explications :</p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/capteur-ir-mode-declenchement-unique-3.jpg" alt="" height="367" width="611"></p>
+<p>Le délai à l'état haut est d'environ 2,5 secondes par défaut.</p>
+<p></p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/capteur-ir-mode-declenchement-unique-4.jpg" alt="" height="368" width="613"></p>
+<p>Comme vous pouvez le voir sur la seconde image, il y a un temps ou le signal du capteur est "forcé" à l'état bas. C'est à dire que pendant ce laps de temps là, le capteur ne détectera pas les mouvements. En faisant plusieurs essais, je trouve une valeur d'environ 6 secondes.</p>
+<p>Le capteur possède deux modes de fonctionnement :&nbsp;</p>
+<ul>
+<li>Un mode de détection unique qui permet de détecter un seul mouvement à la fois</li>
+<li>Un mode de détection multiple qui permet de détecter plusieurs mouvements et de déclencher le compteur du temps à l'état haut à partir du dernier mouvement détecté. L'image ci-dessous illustre ce mode de fonctionnement.</li>
+</ul>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/capteur-ir-mode-declenchement-repetable-3.jpg" alt="" height="378" width="631"></p>
+<p>La cavalier sert à sélectionner ces deux modes :</p>
+<p>le mode de détection unique</p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/cavalier-capteur-ir.jpg" alt="" height="370" width="617"></p>
+<p>et le mode de détection multiple.</p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/cavalier-capteur-ir-2.jpg" alt="" height="372" width="620"></p>
+<h2>Utilisation du capteur PIR</h2>
+<p></p>
+<p>Il est temps de relier votre capteur à votre carte arduino ! C'est simple, le capteur ne possède que 3 broches à connecter.</p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/capteur-infrarouge-zoom.jpg" alt="" height="373" width="621"></p>
+<p>Les 3 broches sont en haut de l'image, voici leurs fonctions de gauche à droite : la masse, le signal de sortie (numérique), l'alimentation (5 V).</p>
+<p>Il ne reste plus qu'à les relier de la sorte :</p>
+<p>(<span style="text-decoration: underline;"><a href="http://fritzing.org/projects/montage-hc-sr501">lien de téléchargement</a></span>)</p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/montage HC-SR501.jpg" alt="" height="293" width="630"></p>
+<p><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/capteur-infrarouge-montage.jpg" alt="" height="379" width="632"></p>
+<p></p>
+<p>A présent, voici un petit programme qui permet la lecture du capteur infrarouge :</p>
+<p><iframe width="300" height="150" style="height: 510px; width: 100%; margin: 10px 0;" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/preview.html" frameborder="0"></iframe></p>
+<p>Ce programme permet d'afficher dans le moniteur série si un mouvement est détecter ou non. Le seul problème est que l'affichage est en continu, même s'il n'y a pas de changement dans l'information le moniteur l'affiche tout de même. Par conséquent je trouve le moniteur série un peu surchargé.</p>
+<p></p>
+<p>Le programme suivant utilise les interruptions, ainsi le moniteur affiche les informations uniquement à chaque fois qu'elles changent ! C'est quand même plus lisible !</p>
+<p><iframe width="300" height="150" style="height: 510px; width: 100%; margin: 10px 0;" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/preview(1).html" frameborder="0"></iframe></p>
+<p>Et voilà ! Maintenant vous savez tous sur ce capteur et vous pouvez l'utiliser pour vos projets ! N'hésitez pas à les partager sur le forum et à demander de l'aide aux makers !</p>
+    	</div>
+    
+    	    		<div class="sdstags-update">
+    			<span class="tags">
+    				<b>Tags: </b> 
+    				    					    					    					<a title="tag" href="https://www.robot-maker.com/shop/blog/tag/capteur.html">capteur</a>
+    				    					    					    					<a title="tag" href="https://www.robot-maker.com/shop/blog/tag/infrarouge.html">infrarouge</a>
+    				    					    					    					<a title="tag" href="https://www.robot-maker.com/shop/blog/tag/hcsr501.html">hcsr501</a>
+    				    					    					    					<a title="tag" href="https://www.robot-maker.com/shop/blog/tag/tutoriel.html">tutoriel</a>
+    				    			</span>
+    		</div>
+    	    </div>
+    
+    <div class="articleHeader">
+		<div class="postInfo">
+			                        
+            			
+            <span itemprop="dateCreated">
+            	<i class="fa fa-calendar"></i>
+                &nbsp;févr. 28, 2017
+            </span> 
+                 
+            <span itemprop="articleSection">
+               <i class="fa fa-tags"></i>
+               <a href="https://www.robot-maker.com/shop/blog/category/2_tutos.html">Tutoriels Arduino</a>
+            </span> 
+             
+            <span class="comments">   
+                <i class="fa fa-comments"></i> 
+                                    4
+                                 Commentaires
+			</span>
+            
+        	<a title="" style="display:none" itemprop="url" href="https://www.robot-maker.com/shop/blog/27_Connecter-capteur-Infrarouge-HCSR501.html#"></a>
+		</div>
+	</div>
+    
+	<div class="sdsarticleBottom">
+    	
+	</div>
+</div>
+
+	<div id="articleComments" class="block">
+    	<h2 class="title_block">4 Commentaires</h2>
+		<div id="comments">      
+			<div class="commentList">
+				                                	    <ul class="commentList">
+        <li id="comment-33" class="even">
+        	<div class="well">
+            	<div class="comment-content clearfix">
+                    <img class="avatar" alt="Avatar" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/avatar-author-default.jpg">
+                                                                        <div class="reply pull-right">
+                                <a onclick="return addComment.moveForm(&#39;comment-33&#39;, &#39;33&#39;, &#39;respond&#39;, &#39;27&#39;)" class="comment-reply-link btn btn-default btn-sm"><span>Reply</span></a>
+                            </div>
+                                                                <div class="name"><strong>jacobée</strong></div>
+                    
+                    <div class="created">
+                        <span itemprop="commentTime">mai  3, 2018</span>
+                    </div>
+                    
+                    <p>Bonjour,
+Dans l'optique d'une alarme sur un voilier (à quai) j'ai appliqué le principe expliqué dans cet article avec le même capteur PIR relié à un shield GSM.
+Utilisé seul comme dans votre article aucun problème.
+Couplé au shield GPRS tout fonctionne mais j'ai des détections intempestives et aléatoires que je ne comprends pas.
+Une détection toutes les trois heures dans le meilleur des cas ; ex : 01:19 - 04:18 - 07:18 etc...
+Cette situation ne se produit que si le PIR est connecté ; j'ai essayé sur différentes pin, c'est pareil.
+Une idée ?  Merci !</p>
+            	</div>
+            </div>
+                              
+                                                <ul class="commentList">
+        <li id="comment-41" class="even">
+        	<div class="well">
+            	<div class="comment-content clearfix">
+                    <img class="avatar" alt="Avatar" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/avatar-author-default.jpg">
+                                                                        <div class="reply pull-right">
+                                <a onclick="return addComment.moveForm(&#39;comment-41&#39;, &#39;41&#39;, &#39;respond&#39;, &#39;27&#39;)" class="comment-reply-link btn btn-default btn-sm"><span>Reply</span></a>
+                            </div>
+                                                                <div class="name"><strong>Mike118</strong></div>
+                    
+                    <div class="created">
+                        <span itemprop="commentTime">mai 21, 2018</span>
+                    </div>
+                    
+                    <p>Il faudrait peut être jeter un oeil à votre code ...
+Je vous invite à passer du côté du forum =&gt; www.robot-maker.com/forum </p>
+            	</div>
+            </div>
+                              
+                                                <ul class="commentList">
+        <li id="comment-43" class="even">
+        	<div class="well">
+            	<div class="comment-content clearfix">
+                    <img class="avatar" alt="Avatar" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/avatar-author-default.jpg">
+                                                                        <div class="reply pull-right">
+                                <a onclick="return addComment.moveForm(&#39;comment-43&#39;, &#39;43&#39;, &#39;respond&#39;, &#39;27&#39;)" class="comment-reply-link btn btn-default btn-sm"><span>Reply</span></a>
+                            </div>
+                                                                <div class="name"><strong>JJDelfino</strong></div>
+                    
+                    <div class="created">
+                        <span itemprop="commentTime">mai 24, 2018</span>
+                    </div>
+                    
+                    <p>Bonjour, j'ai un probleme avec le deuxieme code, ca me dit que" 'detection_IR' was not declared in this scope". 
+comment remedier a cela ?</p>
+            	</div>
+            </div>
+                              
+                                              
+                                                                                </li>
+    </ul>
+  
+                                                                                </li>
+    </ul>
+  
+                                                                                </li>
+    </ul>
+ 
+				                	    <ul class="commentList">
+        <li id="comment-86" class="even">
+        	<div class="well">
+            	<div class="comment-content clearfix">
+                    <img class="avatar" alt="Avatar" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/avatar-author-default.jpg">
+                                                                        <div class="reply pull-right">
+                                <a onclick="return addComment.moveForm(&#39;comment-86&#39;, &#39;86&#39;, &#39;respond&#39;, &#39;27&#39;)" class="comment-reply-link btn btn-default btn-sm"><span>Reply</span></a>
+                            </div>
+                                                                <div class="name"><strong>gregoire</strong></div>
+                    
+                    <div class="created">
+                        <span itemprop="commentTime">juin 17, 2019</span>
+                    </div>
+                    
+                    <p>connecter avec une led c'est le top bonne détection la led s'allume a la detection petite modofication sur le programme.</p>
+            	</div>
+            </div>
+                              
+                                              
+                                                                                </li>
+    </ul>
+ 
+				            </div>
+        </div>
+	</div>
+
+			<div class="smartblogcomments" id="respond">
+			<h4 class="comment-reply-title page-subheading" id="reply-title">Cet article vous a plu ? Laissez-nous un commentaire ! 
+        		<small style="float:right;">
+                	<a style="display: none;" href="https://www.robot-maker.com/wp/sellya/sellya/this-is-a-post-with-preview-image/#respond" id="cancel-comment-reply-link" rel="nofollow">Annuler la réponse</a>
+            	</small>
+        	</h4>
+		
+        	<div id="commentInput">
+            	<p><span class="required">Tous les champs sont obligatoires</span></p>
+            	<form action="https://www.robot-maker.com/shop/blog/27_Connecter-capteur-Infrarouge-HCSR501.html" method="post" id="commentform">
+					<table>
+						<tbody>
+                        	<tr>
+                            	<td> 
+                                    <b>Nom:</b>
+                                </td>
+                                <td>
+                                	<input type="text" tabindex="1" class="inputName form-control grey" value="" name="name">
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td>
+                                    <b>E-mail: </b>
+                                    <span class="note">(ne sera pas publié)</span>
+                                </td>
+                                <td>
+                                	<input type="text" tabindex="2" class="inputMail form-control grey" value="" name="mail">
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td>
+                                    <b> Commentaire:</b>
+                                </td>
+                                <td>
+                                	<textarea tabindex="4" class="inputContent form-control grey" rows="8" cols="50" name="comment"></textarea>
+                                </td>
+                            </tr>
+															<tr>
+									<td> </td>
+                                    <td><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/CaptchaSecurityImages.php"></td>
+								</tr>
+                                <tr>
+                                    <td>
+                                        <b>Recopier le code</b>
+                                    </td>
+                                    <td>
+                                        <input type="text" tabindex="" value="" name="smartblogcaptcha" class="smartblogcaptcha form-control grey">
+                                    </td>
+								</tr>
+													</tbody>
+					</table>
+					<input type="hidden" name="comment_post_ID" value="1478" id="comment_post_ID">
+					<input type="hidden" name="id_post" value="27" id="id_post">
+					<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                    
+					<div class="text-right">	
+        				<div class="submit">
+            				<input type="submit" name="addComment" id="submitComment" class="bbutton btn btn-default button-medium" value="Envoyer">
+						</div>
+                    </div>
+				</form>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+        $('#submitComment').bind('click',function(event) {
+            event.preventDefault();
+            var data = { 
+                'action':'postcomment', 
+                'id_post':$('input[name=\'id_post\']').val(),
+                'comment_parent':$('input[name=\'comment_parent\']').val(),
+                'name':$('input[name=\'name\']').val(),
+                //'website':$('input[name=\'website\']').val(),
+                'smartblogcaptcha':$('input[name=\'smartblogcaptcha\']').val(),
+                'comment':$('textarea[name=\'comment\']').val(),
+                'mail':$('input[name=\'mail\']').val()
+            };
+            
+            $.ajax( {
+                url: baseDir + 'modules/smartblog/ajax.php',
+                data: data, 
+                dataType: 'json',
+                beforeSend: function() {
+                    $('.alert-warning, .alert-success, .alert-danger').remove();
+                    $('#submitComment').attr('disabled', true);
+                    $('#commentInput').before('<div class="attention"><img src="https://321cart.com/sellya/catalog/view/theme/default/image/loading.gif" alt="" />Veuillez patienter!</div>');
+                },
+                complete: function() {
+                    $('#submitComment').attr('disabled', false);
+                    $('.attention').remove();
+                },
+                success: function(json) {
+                    
+                    if (json['error']) {
+                        $('#commentInput').before('<div class="alert alert-warning">' + '<i class="fa fa-warning"></i> ' + json['error']['common'] + '</div>');
+                            
+                        if (json['error']['name']) {
+                            $('.inputName').after('<span class="text-warning">' + json['error']['name'] + '</span>');
+                        }
+                        if (json['error']['mail']) {
+                            $('.inputMail').after('<span class="text-warning">' + json['error']['mail'] + '</span>');
+                        }
+                        if (json['error']['comment']) {
+                            $('.inputContent').after('<span class="text-warning">' + json['error']['comment'] + '</span>');
+                        }
+                        if (json['error']['captcha']) {
+                            $('.smartblogcaptcha').after('<span class="text-warning">' + json['error']['captcha'] + '</span>');
+                        }
+                    }
+                        
+                    if (json['success']) {
+                        $('input[name=\'name\']').val('');
+                        $('input[name=\'mail\']').val('');
+                        //$('input[name=\'website\']').val('');
+                        $('textarea[name=\'comment\']').val('');
+                        $('input[name=\'smartblogcaptcha\']').val('');
+                        $('#commentInput').before('<div class="alert alert-success">' + json['success'] + '</div>');
+                        setTimeout(function(){
+                            $('.alert-success').fadeOut(300).delay(450).remove();
+                            },2500
+                        );
+						location.reload();
+                    }
+                }
+            });
+        });
+            
+        var addComment = {
+            moveForm : function(commId, parentId, respondId, postId) {
+                var t = this, div, comm = t.I(commId), respond = t.I(respondId), cancel = t.I('cancel-comment-reply-link'), parent = t.I('comment_parent'), post = t.I('comment_post_ID');
+    
+                if ( ! comm || ! respond || ! cancel || ! parent )
+                    return;
+     
+                t.respondId = respondId;
+                postId = postId || false;
+    
+                if ( ! t.I('wp-temp-form-div') ) {
+                    div = document.createElement('div');
+                    div.id = 'wp-temp-form-div';
+                    div.style.display = 'none';
+                    respond.parentNode.insertBefore(div, respond);
+                }
+    
+                comm.parentNode.insertBefore(respond, comm.nextSibling);
+                if ( post && postId )
+                    post.value = postId;
+                    parent.value = parentId;
+                    cancel.style.display = '';
+    
+                cancel.onclick = function() {
+                    var t = addComment, temp = t.I('wp-temp-form-div'), respond = t.I(t.respondId);
+    
+                    if ( ! temp || ! respond )
+                        return;
+    
+                    t.I('comment_parent').value = '0';
+                    temp.parentNode.insertBefore(respond, temp);
+                    temp.parentNode.removeChild(temp);
+                    this.style.display = 'none';
+                    this.onclick = null;
+                    return false;
+                };
+    
+                try { t.I('comment').focus(); }
+                catch(e) {}
+    
+                return false;
+            },
+    
+            I : function(e) {
+                return document.getElementById(e);
+            }
+        };      
+    </script>
+    
+</div>
+
+</div>
+
+</div>
+					</div><!-- #center_column -->
+										</div><!-- .row -->
+				</div><!-- #columns -->
+								<!-- Footer -->
+				<div class="footer-container">
+					<footer id="footer" class="container">
+						<div class="row"><!-- Block Newsletter module-->
+<div id="newsletter_block_left" class="block">
+	<h4>Lettre d'informations</h4>
+	<div class="block_content">
+		<form action="https://www.robot-maker.com/shop/" method="post">
+			<div class="form-group">
+				<input class="inputNew form-control grey newsletter-input" id="newsletter-input" type="text" name="email" size="18" value="Enter your e-mail">
+                <button type="submit" name="submitNewsletter" class="btn btn-default button button-small">
+                    <span>Ok</span>
+                </button>
+				<input type="hidden" name="action" value="0">
+			</div>
+		</form>
+	</div>
+    
+</div>
+<!-- /Block Newsletter module-->
+<section id="social_block" class="pull-right">
+	<ul>
+					<li class="facebook">
+				<a class="_blank" href="https://fr-fr.facebook.com/Robot-Maker-120240804720348/timeline/" target="_blank">
+					<span>Facebook</span>
+				</a>
+			</li>
+							<li class="twitter">
+				<a class="_blank" href="https://twitter.com/robot_maker_com" target="_blank">
+					<span>Twitter</span>
+				</a>
+			</li>
+							<li class="rss">
+				<a class="_blank" href="http://www.robot-maker.com/shop/blog.html" target="_blank">
+					<span>RSS</span>
+				</a>
+			</li>
+		                                        	</ul>
+    <h4>Nous suivre</h4>
+</section>
+<div class="clearfix"></div>
+	<!-- Block CMS module footer -->
+	<section class="footer-block col-xs-12 col-sm-2" id="block_various_links_footer">
+		<h4>Informations</h4>
+		<ul class="toggle-footer" style="">
+							<li class="item">
+					<a href="https://www.robot-maker.com/shop/promotions" title="Promotions">
+						Promotions
+					</a>
+				</li>
+									<li class="item">
+				<a href="https://www.robot-maker.com/shop/nouveaux-produits" title="Nouveaux produits">
+					Nouveaux produits
+				</a>
+			</li>
+										<li class="item">
+					<a href="https://www.robot-maker.com/shop/meilleures-ventes" title="Top sellers">
+						Top sellers
+					</a>
+				</li>
+										<li class="item">
+					<a href="https://www.robot-maker.com/shop/magasins" title="Nos magasins">
+						Nos magasins
+					</a>
+				</li>
+									<li class="item">
+				<a href="https://www.robot-maker.com/shop/nous-contacter" title="Contactez-nous">
+					Contactez-nous
+				</a>
+			</li>
+															<li class="item">
+						<a href="https://www.robot-maker.com/shop/content/3-conditions-utilisation" title="Conditions de ventes">
+							Conditions de ventes
+						</a>
+					</li>
+																				<li>
+				<a href="https://www.robot-maker.com/shop/plan-site" title="sitemap">
+					sitemap
+				</a>
+			</li>
+					</ul>
+		
+	</section>
+		<!-- /Block CMS module footer -->
+<!-- Block myaccount module -->
+<section class="footer-block col-xs-12 col-sm-4">
+	<h4><a href="https://www.robot-maker.com/shop/mon-compte" title="Gérer mon compte client" rel="nofollow">Mon compte</a></h4>
+	<div class="block_content toggle-footer" style="">
+		<ul class="bullet">
+			<li><a href="https://www.robot-maker.com/shop/historique-commandes" title="Mes commandes" rel="nofollow">Mes commandes</a></li>
+						<li><a href="https://www.robot-maker.com/shop/avoirs" title="Mes avoirs" rel="nofollow">Mes avoirs</a></li>
+			<li><a href="https://www.robot-maker.com/shop/adresses" title="Mes adresses" rel="nofollow">Mes adresses</a></li>
+			<li><a href="https://www.robot-maker.com/shop/identite" title="Gérer mes informations personnelles" rel="nofollow">Mes informations personnelles</a></li>
+			<li><a href="https://www.robot-maker.com/shop/reduction" title="Mes bons de réduction" rel="nofollow">Mes bons de réduction</a></li>			
+            		</ul>
+	</div>
+</section>
+<!-- /Block myaccount module -->
+<!-- MODULE Block contact infos -->
+<section id="block_contact_infos" class="footer-block col-xs-12 col-sm-4">
+	<div>
+        <h4>Coordonnées</h4>
+        <ul class="toggle-footer" style="">
+                        	<li>
+<i class="icon-map-marker"></i>ROBOT MAKER SAS<br>156 Route du Villard<br>
+74410 Saint Jorioz<br>
+France            	</li>
+                                            </ul>
+    </div>
+</section>
+<!-- /MODULE Block contact infos -->
+
+				<script type="text/javascript">
+					ga('send', 'pageview');
+				</script><!-- Smartsupp Live Chat script --><script type="text/javascript">var _smartsupp = _smartsupp || {};_smartsupp.key = 'd81c2ddbd75fbe4b3dfeae7b266414c6fd4a85ed';_smartsupp.cookieDomain = '.www.robot-maker.com';window.smartsupp||(function(d) {var s,c,o=smartsupp=function(){o._.push(arguments)};o._=[];s=d.getElementsByTagName('script')[0];c=d.createElement('script');c.type='text/javascript';c.charset='utf-8';c.async=true;c.src='//www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);})(document);smartsupp('name', '');smartsupp('email', '');</script>
+<script type="text/javascript">
+var confirmDeleteProductsOtherSeller = "Votre panier contient des produits provenant d'un autre vendeur. Vous ne pouvez pas combiner les produits de différents vendeur en une seule commande pour le moment. Etes-vous sûr que vous voulez ajouter ce produit et supprimer les produits que vous avez actuellement dans votre panier?";
+var confirm_controller_url = 'https://www.robot-maker.com/shop/module/jmarketplace/addproductcartconfirm';
+</script>
+
+ 
+ 
+<div id="steavisgarantisFooterVerif">
+<a href="https://www.societe-des-avis-garantis.fr/?apiKeyError" target="_blank">
+    <img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/icon.png" width="20px" height="20px" alt="avis clients">
+</a>
+<span id="steavisgarantisFooterText">Marchand approuvé par la Société des Avis Garantis, <a href="https://www.societe-des-avis-garantis.fr/?apiKeyError" target="_blank">cliquez ici pour vérifier l'attestation</a>.</span>
+</div>
+ 
+</div>
+					</footer>
+				</div><!-- #footer -->
+						</div><!-- .columns-container -->
+			
+		</div><!-- #page -->
+
+
+
+		<div class="dcjq-mega-menu">
+<ul id="mega-menu-tut" class="menu">
+    <li class=""><a href="https://www.robot-maker.com/" title="Robot Maker accueil"><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/home-white.png" style="margin: -3px;"></a></li> 
+     
+    
+
+  <li class="dc-mega-li"><a class="dc-mega">Communauté<span class="dc-mega-icon"></span></a>
+  <div class="sub-container mega" style="left: 0px; top: 40px; z-index: 1000;"><ul class="sub" style="display: none;">
+            <div class="row" style="width: 1120px;"><li id="menu-item-17" class="mega-hdr" style="height: 301px;"><a title="Forum robotique" href="https://www.robot-maker.com/forum/" class="mega-hdr-a" style="height: 16px;">Forum des Makers</a>
+                <ul>
+                <li><a href="https://www.robot-maker.com/forum/index.php?app=core&amp;module=search&amp;do=viewNewContent&amp;search_app=forums" rel="nofollow">Nouveau contenu</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/8_regles.html" title="les règles">Les règles du forum</a></li>  
+<li><a href="https://www.robot-maker.com/shop/blog/7_equipe.html" title="l&#39;équipe du forum des makers">L'équipe</a></li>
+<li><a href="https://www.robot-maker.com/forum/blogs/" title="blogs robotique">Blogs des membres</a></li>
+<li><a href="https://www.robot-maker.com/forum/members/" rel="nofollow">Membres</a></li>
+                    
+                </ul>
+            </li><li id="menu-item-11" class="mega-hdr" style="height: 301px;"><a href="https://www.robot-maker.com/forum/tutorials/" title="tutoriel robotique" class="mega-hdr-a" style="height: 16px;">Tutos des Makers</a>
+                <ul>
+                    
+                 <li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/4-robot-complet/" title="tutos robot complet">
+                Robot complet                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/2-le-chassis/" title="tutos chassis robot">
+                Le chassis                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/3-mecanique/" title="tutos rmécanique robot">
+                Mécanique</a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/5-electronique/" title="tutos électronique robotique">
+                Electronique                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/9-electronique-schemas/" title="schemas électroniques">
+                Electronique - Schémas               </a>
+
+            </li>
+                
+                <li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/7-programmation/" title="tutos programmation robots">
+                Programmation                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/8-intelligence-artificielle/" title="tutos IA">
+                Intelligence Artificielle                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/6-concepts/">
+                Concept </a>
+
+            </li><li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/10-lego/" title="tutos lego robotique">
+                Lego </a>
+
+            </li><li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/11-imprimantes-3d/" title="tutos imprimante 3D">
+                Imprimantes 3D </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/forum/tutorials/category/1-divers/">
+                Divers               </a>
+
+            </li>                    
+                </ul>
+            </li><li id="menu-item-10" class="mega-hdr" style="height: 301px;"><a href="https://www.robot-maker.com/robotscope/" class="mega-hdr-a" style="height: 16px;">Robots des Makers</a>
+                <ul>
+                    
+                    <li>
+                <a href="https://www.robot-maker.com/robotscope/item/new/101">Ajouter un robot</a>
+
+            </li>
+
+    <li>
+                <a href="https://www.robot-maker.com/robotscope/robot-sumo" title="photos robots sumo">
+                Robot sumo                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/robotscope/robot-d-entretien" title="photos robots domestique">
+                Robot d'entretien                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/robotscope/robot-a-chenilles" title="photos robots a chenilles">
+                Robot à chenilles                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/robotscope/base-roulante" title="photos robots roulants">
+                Base roulante                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/robotscope/robot-bipede" title="photos robots bipèdes">
+                Robot bipède                </a>
+
+            </li>
+                
+                <li>
+                <a href="https://www.robot-maker.com/robotscope/robot-humanoide" title="photos robots humanoïdes">
+                Robot humanoïde                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/robotscope/hexapode" title="photos robots hexapodes">
+                Hexapode                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/robotscope/quadripode" title="photos robots quadrupèdes">
+                Quadripode                </a>
+
+            </li>
+                <li>
+                <a href="https://www.robot-maker.com/robotscope/drones-robots-volants" title="photos drones, robots volants">
+                Drones, robots volants                </a>
+
+            </li>
+            <li>
+                <a href="https://www.robot-maker.com/robotscope/autre-robot">
+                Autre robot                </a>
+
+            </li>                </ul>
+            </li><li id="menu-item-12" class="mega-hdr last" style="height: 301px;"><a href="https://www.robot-maker.com/ouvrages/" class="mega-hdr-a" style="height: 16px;">Ouvrages des Makers</a>
+                <ul>
+                    
+                   <li>
+                <a href="https://www.robot-maker.com/ouvrages/lexique/" title="vocabulaire robotique">Lexique robotique</a>
+
+            </li>
+ <li>
+                <a href="https://www.robot-maker.com/ouvrages/tuto-arduino/" title="débuter Arduino">
+                Débuter avec Arduino</a>
+
+            </li>
+  <li>
+                <a href="https://www.robot-maker.com/ouvrages/micheldroui/apprendre-a-programmer-arduino-en-samusant/" title="programmer Arduino">
+                Programmer Arduino en s'amusant</a>
+
+            </li> 
+                <li>
+                <a href="https://www.robot-maker.com/ouvrages/arduino-nano-station-meteo/" title="station météo Arduino">
+                Station météo Arduino</a>
+
+            </li>   <li>
+                <a href="https://www.robot-maker.com/ouvrages/interface-puissance-arduino/" title="Interface de puissance secteur et Arduino">Interface de puissance secteur et Arduino</a></li> 
+            <li>
+                <a href="https://www.robot-maker.com/ouvrages/lego-mindstorms-ev3/" title="Lego Mindstorm EV3">Initiation au LEGO Mindstorms EV3</a>
+
+            </li>                   
+                </ul>
+            </li></div>
+            
+            
+            
+            
+            
+        </ul></div>
+    </li>
+  
+  
+
+                    <li class="dc-mega-li"><a href="https://www.robot-maker.com/shop/" title="boutique robotique" class="dc-mega">Boutique des Makers<span class="dc-mega-icon"></span></a>        <div class="sub-container mega" style="left: 0px; top: 40px; z-index: 1000;"><ul class="sub" style="display: none;">
+            <div class="row" style="width: 1400px;"><li id="menu-item-1" class="mega-hdr" style="height: 141px;"><a href="https://www.robot-maker.com/shop/12-kits-robots" class="mega-hdr-a" style="height: 16px;">Kits Robots</a>
+                <ul>
+                    <li><a href="https://www.robot-maker.com/shop/23-kit-robot-quadrupede">Kit robot quadrupède</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/24-kit-robot-roulant">Robot roulant</a></li>
+                </ul>
+            </li><li id="menu-item-2" class="mega-hdr" style="height: 141px;"><a href="https://www.robot-maker.com/shop/13-cartes-programmables" class="mega-hdr-a" style="height: 16px;">Cartes programmables</a>
+                <ul>
+                    
+                    <li><a href="https://www.robot-maker.com/shop/arduino-officielles/105-arduino-m0-officiel.html">Arduino M0</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/arduino-officielles/106-arduino-mega2560-rev3-officiel.html">Arduino Mega</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/arduino-officielles/107-arduino-nano-officiel.html">Arduino Nano</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/kits-debutants-arduino/104-arduino-starter-kit-officiel-francais.html">Kit débutant Arduino</a></li>
+                    
+                </ul>
+            </li><li id="menu-item-3" class="mega-hdr" style="height: 141px;"><a href="https://www.robot-maker.com/shop/15-capteurs" class="mega-hdr-a" style="height: 16px;">Capteurs</a>
+                <ul>
+                    
+                    <li><a href="https://www.robot-maker.com/shop/28-capteur-de-vision">Capteur de vision, caméras robotique</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/29-capteur-distance">Capteur de distance</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/capteurs/31-dht22.html">Capteur de température</a></li>
+                    
+                </ul>
+            </li><li id="menu-item-4" class="mega-hdr" style="height: 141px;"><a href="https://www.robot-maker.com/shop/16-moteurs-et-actionneurs" class="mega-hdr-a" style="height: 16px;">Moteurs et actionneurs</a>
+                <ul>
+                    
+                    <li><a href="https://www.robot-maker.com/shop/31-moteurs-cc">Moteur CC</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/30-moteurs-pas-a-pas">Moteur pas à pas</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/32-servomoteurs-type-modelisme-">Servomoteur</a></li>
+                    
+                </ul>
+            </li><li id="menu-item-5" class="mega-hdr last" style="height: 141px;"><a href="https://www.robot-maker.com/shop/17-drivers-d-actionneurs" class="mega-hdr-a" style="height: 16px;">Drivers d'actionneurs</a>
+                <ul>
+                    <li><a href="https://www.robot-maker.com/shop/40-driver-servomoteur">Driver servomoteur</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/39-driver-moteur-pas-a-pas">Driver de moteur pas à pas</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/41-driver-moteur-cc">Driveur de moteur CC</a></li>
+                    
+                </ul>
+            </li></div>
+            
+            
+            
+            
+            <div class="row" style="width: 1400px;"><li id="menu-item-6" class="mega-hdr" style="height: 407px;"><a href="https://www.robot-maker.com/shop/18-composants" class="mega-hdr-a" style="height: 16px;">Composants</a>
+                <ul>
+                    <li><a href="https://www.robot-maker.com/shop/blog/27_Connecter-capteur-Infrarouge-HCSR501.html#">Fils, nappes de fils</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/42-veroboard-breadboard">Veroboard, Breadboard</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/44-interrupteur">Interrupteurs</a></li>
+                   <li><a href="https://www.robot-maker.com/shop/45-potentiometre">Potentiomêtre</a></li>
+                   <li><a href="https://www.robot-maker.com/shop/46-support-de-piles">Support de piles</a></li>
+
+
+                </ul>
+            </li><li id="menu-item-7" class="mega-hdr" style="height: 407px;"><a href="https://www.robot-maker.com/shop/20-alimentation" class="mega-hdr-a" style="height: 16px;">Alimentation</a>
+                <ul>
+                    <li><a href="https://www.robot-maker.com/shop/47-convertisseur">Convertisseur</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/48-coupleur-adaptateur-de-piles">Coupleur, adaptateur de piles</a></li>
+   
+                    
+                </ul>
+            </li><li id="menu-item-8" class="mega-hdr" style="height: 407px;"><a href="https://www.robot-maker.com/shop/21-impression-3d" class="mega-hdr-a" style="height: 16px;">Impression 3D</a>
+                <ul>
+                    <li><a href="https://www.robot-maker.com/shop/37-imprimante-3d">Imprimantes 3D</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/38-consommables">Consommables</a></li>
+                    
+                    
+                </ul>
+            </li><li id="menu-item-9" class="mega-hdr" style="height: 407px;"><a href="https://www.robot-maker.com/shop/27-outillage" class="mega-hdr-a" style="height: 16px;">Outillage</a>
+                <ul>
+                    <li><a href="https://www.robot-maker.com/shop/outillage/61-kit-fer-a-souder.html">Fer à souder</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/outillage/66-troisieme-main.html">Troisième main</a></li>
+                    
+                </ul>
+            </li><li id="menu-item-18" class="mega-hdr last" style="height: 407px;"><a href="https://www.robot-maker.com/shop/blog/category/2_tutos.html" class="mega-hdr-a" style="height: 16px;">Tutoriels robotique</a>
+                <ul>
+                    <li><a href="https://www.robot-maker.com/shop/blog/10_Arduino-Raspberry-Pi.html">Comparaison Arduino et Raspberry Pi</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/12_dessouder.html">Dessouder des composants</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/17_Utilisation-radiocommande.html">Utilisation d'une radiocommande</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/22_Apprendre-souder-connecteur-batterie-LiPo.html">Souder un connecteur de batterie lipo</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/19_ecran-lcd-robotique.html">Utiliser un écran LCD</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/20_Tutoriel-piloter-leds-distance.html">Piloter des leds à distance</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/23_Tutoriel-driver-moteur-courant-continu.html">Fonctionnement d'un driver de moteur CC</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/26_Utiliser-capteur-ultrasons.html">Utiliser le capteur à ultrasons HC-SR04</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/27_Connecter-capteur-Infrarouge-HCSR501.html">Utiliser un capteur Infrarouge HC-SR501</a></li>
+                    <li><a href="https://www.robot-maker.com/shop/blog/category/2_tutos.html">Voir tous les tutoriels du blog...</a></li>
+
+                </ul>
+            </li></div>
+            
+            
+            
+            
+        </ul></div>
+    </li>
+<li><a href="https://www.robot-maker.com/shop/nous-contacter">Contact</a></li>
+
+</ul></div> 
+
+<script type="text/javascript" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/php-stats.js.php"></script><img src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/php-stats.php" border="0" alt="" width="1" height="1">
+<noscript><img src="/ppstats/php-stats.php" border="0" alt=""></noscript>
+ok
+<iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Capteur de mouvement PIR HC-SR501 et Arduino_files/widget_iframe.6787510241df65d128e2b60207ad4c25.html" title="Twitter settings iframe" style="display: none;"></iframe></body></html>
