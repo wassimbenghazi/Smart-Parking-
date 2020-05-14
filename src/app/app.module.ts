@@ -51,7 +51,7 @@ import { AdminContactComponent } from './admin-contact/admin-contact.component';
     SignupComponent,
     AdminAddCarComponent,
     UserReservationComponent,
-    UserContactComponent,
+   
     AdminContactComponent,
   
   ],

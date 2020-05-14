@@ -22,7 +22,16 @@ export class FirebaseService {
     this.userStatusChanges.next(userStatus);
   }
 
-
+  carRequest(type_Car:string,nb_L:string){
+    let LicensePlate = {
+      id: this.currentUser.id,
+      type_Car:type_Car,
+      nb_L:nb_L,
+      verfied:"false"
+     }
+    this.firestore.collection("LicensePlates").add(LicensePlate)
+       
+  }
 
   signUp(email:string, password:string, name:string, lastname:string,cin:number,phone:number){
   

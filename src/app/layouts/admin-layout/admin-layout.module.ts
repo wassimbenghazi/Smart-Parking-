@@ -22,6 +22,7 @@ import {
 
   
 } from "@angular/material";
+import { UserContactComponent } from "app/user-contact/user-contact.component";
 
 @NgModule({
   imports: [
@@ -40,7 +41,7 @@ import {
     MatTableModule,
     MatCardModule
   ],
-  declarations: [
+  declarations: [UserContactComponent,
     UserProfileComponent,
     TableListComponent,
     NotificationsComponent, DialogOverviewExampleDialog

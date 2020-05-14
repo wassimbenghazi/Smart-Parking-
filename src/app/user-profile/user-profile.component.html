@@ -4,55 +4,24 @@
           <div class="col-md-8">
               <div class="card">
                   <div class="card-header" >
-                      <h4 class="card-title">Fill in the data</h4>
+                      <h4 class="card-title">Add a new car </h4>
                       <p class="card-category">Please do not submite before you make sure of the writen data validity </p>
                   </div>
                   <div class="card-body">
-                      <form [formGroup] = "User" (ngSubmit) = "onClickSubmit(User.value)" >
-                          
-                          <div class="row">
-                              <div class="col-md-5">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Fist Name" type="text" name="name" required  formControlName="name" >
-                                </mat-form-field>
-                              </div>
-                              
-                              <div class="col-md-5">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Last Name" type="text" name="lastname"  required  formControlName="lastname" >
-                                </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-10">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Email address" name="email"   formControlName="email" >
-                                </mat-form-field>
-                            </div>
+                    <form >
+       
+                      <div class="row" style="margin-left: 24px;">
+                        <div class="col-md-5">
+                          <label for="type_Car">Type Car :</label>
+                          <input [(ngModel)]="type_Car" name="type_Car" id="type_Car" placeholder="polo7" class="form-control"  required>
                         </div>
-                          <div class="row">
-                              <div class="col-md-10">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Password" type="password" name="password" required formControlName="password">
-                                </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-5">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="CIN" type="number"  name="cin" required formControlName="cin">
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-5">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Number of phone " type="number" size="8" name="phone" required formControlName="phone">
-                                </mat-form-field>
-                              </div>
-                          </div>
-                          
-                          <button mat-raised-button type="submit" class="btn btn-primary btn-lg" (click)="showNotification('top','right')" >add user</button>
-                          <button mat-raised-button type="reset" class="btn btn-outline-dark ">Reset</button>
-                      </form>
+                        <div class="col-md-5">
+                          <label for="nb_L">License palte number:</label>
+                          <input [(ngModel)]="nb_L" name="nb_L" id="nb_L" class="form-control" placeholder="xxx-xxxx"  required>
+                         </div>
+                      </div>
+                      <button type="button" class="btn btn-success" (click)="addCar()" style="margin-top: 8px; margin-right: 8px;"> Add car </button>
+                    </form> 
                   </div>
               </div>
           </div>

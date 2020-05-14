@@ -4,6 +4,7 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import { User } from 'app/models/users-models';
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database'
 import{Router} from '@angular/router';
+import { FirebaseService } from 'app/firebase.service';
 declare var $: any;
 
 @Component({
@@ -28,53 +29,28 @@ export class UserProfileComponent implements OnInit {
                    
                    role:"user"
                   };
-                  
+    
+  type_Car: string =""
+  nb_L: string =""
 
-     itemList: AngularFireList<any>;
-     User:FormGroup;
-  constructor(public db:AngularFireDatabase, private router:Router) {
+  itemList: AngularFireList<any>;
+     
+  constructor(public db:AngularFireDatabase, private router:Router,private firebaseService: FirebaseService) {
     this.itemList = db.list("Users")
    }
 
   
   ngOnInit() {
-    this.User = new FormGroup({
-      id_U: new FormControl(null),
-      name: new FormControl(null),
-      lastname: new FormControl(null, [Validators.maxLength(80)]),
-      email:new FormControl('', [
-                                 Validators.required,
-                                Validators.email,
-                                ]) ,
-      cin: new FormControl(null, [Validators.maxLength(8),
-                                  Validators.minLength(8)]),
-      phone: new FormControl(null, [Validators.maxLength(8),
-                                    Validators.minLength(8)]),
-      type_U : new FormControl("client"),
-      password: new FormControl(null,[Validators.minLength(8)])
-  
-   });
+   
+   }
+   
 
-  }
-
-  // Submit function 
-  data:any
-  onClickSubmit(data) {
-    this.MyUser = data;
-    console.log(data)
-    this.itemList.push({
-                     
-                      name: this.MyUser.name, 
-                      lastname: this.MyUser.lastname,
-                      email: this.MyUser.email,
-                      cin:this.MyUser.cin,
-                      phone:this.MyUser.phone, 
-                      type_U:this.MyUser.type_U, 
-                      
-                      
-                    })
-          this.router.navigate(['/admin/table-list']) ;
-    
+  addCar(){
+   console.log(this.type_Car)
+   console.log(this.nb_L)
+   this.showNotification('top','right')
+   this.firebaseService.carRequest(this.type_Car,this.nb_L)
+   
   }
 
  //Notification function
@@ -85,7 +61,7 @@ export class UserProfileComponent implements OnInit {
 
   $.notify({
       icon: "notifications",
-      message: "User has been added :) "
+      message: "add car request has been sent :) "
 
   },{
       type: type['info'],
