@@ -6,7 +6,7 @@ export interface User {
     cin: number;
     phone: number;
     type_U:string;
-  
+    balance:number;
     role: string;
 
   };

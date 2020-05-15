@@ -14,24 +14,27 @@
       </div>
     </div>
      <div class="card-body">
-      <h5 class="card-category " style="color: rgb(23, 170, 207);"> License Plates : </h5>
+      <h5 class="card-category " style="color: rgb(23, 170, 207);"> <b>Balance :</b> </h5>
+      <hr> <h2 style="color: rgb(43, 41, 41); text-align: center" > <b>{{balance}} DT</b>  </h2>
+      <hr>
+      <h5 class="card-category " style="color: rgb(23, 170, 207);"><b>License Plates :</b>  </h5>
           <div class="table-responsive"style="color:aqua">   
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
               <ng-container matColumnDef="Type Car">
-                <th mat-header-cell *matHeaderCellDef>  Type Car </th>
+                <th mat-header-cell *matHeaderCellDef> <h6> Type Car </h6>   </th>
                 <td mat-cell *matCellDef="let element "> {{element.type_Car}} </td>
               </ng-container>
             
               
               <ng-container matColumnDef="license Plate number" style="margin-left: 10px;">
-                <th mat-header-cell *matHeaderCellDef> License Plate number </th>
+                <th mat-header-cell *matHeaderCellDef> <h6> License Plate number </h6> </th>
                 <td mat-cell *matCellDef="let element"> {{element.nb_L}} </td>
               </ng-container>
             
              
               <ng-container matColumnDef="verification status" style="margin-left: 10px;">
-                <th mat-header-cell *matHeaderCellDef> Verification status </th>
+                <th mat-header-cell *matHeaderCellDef><h6> Verification status</h6>  </th>
                 <td mat-cell *matCellDef="let element "> {{element.verfied}} </td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

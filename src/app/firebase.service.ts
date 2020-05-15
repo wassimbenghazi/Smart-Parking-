@@ -32,6 +32,15 @@ export class FirebaseService {
     this.firestore.collection("LicensePlates").add(LicensePlate)
        
   }
+  sendContact(contact:string){
+    let myContact = {
+      id: this.currentUser.id,
+      message:contact,
+      seen:"Not yet"
+     }
+    this.firestore.collection("Messages").add(myContact)
+       
+  }
 
   signUp(email:string, password:string, name:string, lastname:string,cin:number,phone:number){
   
@@ -46,6 +55,7 @@ export class FirebaseService {
         name:name,
         lastname:lastname,
         cin:cin,
+        balance:0.0,
         phone:phone
        }
        
@@ -138,6 +148,42 @@ export class FirebaseService {
         this.ngZone.run(() => this.router.navigate(["/login"]));
       }
     })
+  }
+  updateLicensePlate(nb_L){let key:string="";
+    this.firestore.collection("LicensePlates").ref.where("nb_L","==",nb_L)
+    .get().then(querySnapshot=>{
+      querySnapshot.forEach(userRef=> { key=userRef.id})
+      console.log("key",key)
+      this.firestore.collection("LicensePlates").doc(key).update( {
+        "verfied":"true"
+      }) 
+    }) 
+    
+    // .onSnapshot(snap=>{
+    //   snap.forEach(userRef=> { key=userRef.id})
+    //   console.log("key",key)
+    //   this.firestore.collection("LicensePlates").doc(key).update( {
+    //     "verfied":"true"
+    //   }) 
+    // }) 
+  }
+  
+  updateBalance(user,amount){let key:string="";
+  this.firestore.collection("users").ref.where("id","==",user.id).get().then(querySnapshot => {
+    querySnapshot.forEach(userRef=> { key=userRef.id})
+    console.log("key",key)
+    this.firestore.collection("users").doc(key).update( {
+      "balance": user.balance + amount
+    }) 
+  }) 
+  
+  // .onSnapshot(snap=>{
+  //   snap.forEach(userRef=> { key=userRef.id})
+  //   console.log("key",key)
+  //   this.firestore.collection("users").doc(key).update( {
+  //     "balance":user.balance + amount
+  //   }) 
+  // }) 
   }
   deleteUser(user:User){
     this.userDoc= this.firestore.doc(`users/lF7UaGNMFsS0XoNb8tlK`)

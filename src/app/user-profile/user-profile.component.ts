@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
                    cin:null,
                    phone:null, 
                    type_U:null, 
-                   
+                   balance:0.0,
                    role:"user"
                   };
     
@@ -46,11 +46,10 @@ export class UserProfileComponent implements OnInit {
    
 
   addCar(){
-   console.log(this.type_Car)
-   console.log(this.nb_L)
    this.showNotification('top','right')
    this.firebaseService.carRequest(this.type_Car,this.nb_L)
-   
+   this.type_Car=""
+   this.nb_L=""
   }
 
  //Notification function

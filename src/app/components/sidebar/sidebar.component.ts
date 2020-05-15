@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: "/admin/user-profile",
     title: "add a new car",
-    icon: "person",
+    icon: "directions_car",
     class: "",
     
   },  {
@@ -25,6 +25,12 @@ export const ROUTES: RouteInfo[] = [
     path: "/admin/table-list",
     title: "table of users",
     icon: "content_paste",
+    class: ""
+  },
+  {
+    path: "/admin/reclamations",
+    title: "Contact",
+    icon: "assignment",
     class: ""
   },
   {

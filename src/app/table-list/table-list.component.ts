@@ -7,7 +7,7 @@ import { ActionSequence } from 'protractor';
 import { DataSource } from '@angular/cdk/table';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FirebaseService } from 'app/firebase.service';
-
+declare var $: any;
 
 var Matricules: LicensePlate[] = [
   {id_U: 1,  id_L: 1, type_Car: 'marcedes', nb_L:11111111, img_Li_Url:''},
@@ -67,11 +67,7 @@ export class TableListComponent implements OnInit ,AfterViewInit {
 
   
   
-   isShown : boolean = false;
-   id: number;
-   idMat: number;
-   car: string;
-   mat: number;
+  
   ngOnInit() {console.log(this.Users)
      }
    
@@ -85,21 +81,38 @@ export class TableListComponent implements OnInit ,AfterViewInit {
  }
 
   close(){
-    this.isShown= false;
+    
   } 
+  licensePlates=[]
 
-
-  openDialog( data1): void {
-    console.log(this.Users)
+   openDialog( user) { 
+     this.licensePlates=[]
     
-    const d : number=data1.id;
-    this.element=Matricules.find(x=>x.id_U==d);
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '450px',
-      data: {id: this.element.id_U, idMat: this.element.id_L, car: this.element.type_Car,mat:this.element.nb_L,data1}
-    });
+    this.firestore.collection("LicensePlates").ref.where("id", "==", user.id).get().then( querySnapshot => {
+      querySnapshot.forEach(userRef => {
+        console.log("LicensePlates", userRef.data());
+        this.licensePlates.push( userRef.data() as any  )
 
+        })
+        const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+          width: '1200px',
+          data: {user:user, LicensePlates:this.licensePlates}
+        });
+  });
+  
     
+    // (snap=>{ console.log(snap)
+    //   snap.forEach(userRef => {
+    //       console.log("LicensePlates", userRef.data());
+    //       this.licensePlates.push( userRef.data() as any  )
+
+    //       })
+    //       const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+    //         width: '1200px',
+    //         data: {user:user, LicensePlates:this.licensePlates}
+    //       });
+    //     })
+        
   }
 }
 
@@ -125,16 +138,59 @@ export interface DialogData {
   styleUrls: ['./dialog-details.css']
   
 })
-export class DialogOverviewExampleDialog {
+export class DialogOverviewExampleDialog  {
 
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(private firebaseService: FirebaseService,public dialog: MatDialog,
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,@Inject(MAT_DIALOG_DATA) public data: any
+    ) {}
+    displayedColumns: string[] = ['Type Car', 'license Plate number', 'verification status','action'];
+    amount:number=0.0
+    
+    verification(nb_L:any){ 
+      
+      this.firebaseService.updateLicensePlate(nb_L);
+      this.showNotification('top','right',"License Plate has been verified :) ")
+  
+    }
 
+    addBalnace(){
+      this.firebaseService.updateBalance(this.data.user,this.amount);
+      this.showNotification('top','right',"The amount has been added to client balance :) ")
+    }
+  
   onNoClick(): void {
     this.dialogRef.close();
+    this.dialog.closeAll()
   }
 
+  showNotification(from, align,message){
+    const type = ['','info','success','warning','danger'];
+  
+    const color = Math.floor((Math.random() * 4) + 1);
+  
+    $.notify({
+        icon: "notifications",
+        message: message
+  
+    },{
+        type: type['info'],
+        timer: 4000,
+        placement: {
+            from: from,
+            align: align
+        },
+        template: '<div data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
+          '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
+          '<i class="material-icons" data-notify="icon">notifications</i> ' +
+          '<span data-notify="title">{1}</span> ' +
+          '<span data-notify="message">{2}</span>' +
+          '<div class="progress" data-notify="progressbar">' +
+            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+          '</div>' +
+          '<a href="{3}" target="{4}" data-notify="url"></a>' +
+        '</div>'
+    });
+  }
 }
 
 

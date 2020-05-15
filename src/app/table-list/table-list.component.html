@@ -19,12 +19,6 @@
        <div class="card-body">
             <div class="table-responsive"style="color:aqua">   
               <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-                <!-- <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>
-               -->
                
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -51,7 +45,7 @@
                   <td mat-cell *matCellDef="let element "> {{element.phone}} </td>
                 </ng-container>
                 <ng-container matColumnDef="action">
-                  <th mat-header-cell *matHeaderCellDef style="margin-left: 10px;" > action </th>
+                  <th mat-header-cell *matHeaderCellDef style="margin-left: 10px;" > Details </th>
                   <td mat-cell *matCellDef="let element ">
                     <div class="example-button-row">
                       <button mat-raised-button   (click)="openDialog(element)" matTooltip="afficher détails Client" [matTooltipPosition]="'above'">
@@ -59,14 +53,7 @@
                         list
                         </i>
                     </button>
-                      <button mat-raised-button matTooltip="Modifier Client" [matTooltipPosition]="'above'"> <i style="margin-left: 5px;"  class="material-icons">
-                        create
-                        </i></button>
-                      <button mat-raised-button  (click)="deleteUser(element)"matTooltip="Supprimer Client" [matTooltipPosition]="'above'" >
-                         <i style="margin-left: 5px;" class="material-icons">
-                          clear
-                          </i>
-                      </button>
+               
                     </div></td>
                 </ng-container>
               
@@ -76,7 +63,7 @@
             </div>
         </div> 
     </div> 
-    <mat-card *ngIf="isShown"class="example-card" style="margin-bottom: 300px;">
+    <!-- <mat-card class="example-card" style="margin-bottom: 300px;">
       <mat-card-header>
         <mat-card-title>{{user.name+' '+user.lastname}}</mat-card-title>
         <mat-card-subtitle>parking user</mat-card-subtitle>
@@ -97,7 +84,7 @@
             </i>
         </button>
       </mat-card-actions>
-    </mat-card>
+    </mat-card> -->
 </div>
 <!--<mat-card *ngIf="isShown"class="example-card" style="margin-bottom: 300px;">
   <mat-card-header>

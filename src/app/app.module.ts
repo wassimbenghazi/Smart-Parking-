@@ -50,7 +50,7 @@ import { AdminContactComponent } from './admin-contact/admin-contact.component';
     LoginComponent,
     SignupComponent,
     AdminAddCarComponent,
-    UserReservationComponent,
+    
    
     AdminContactComponent,
   

@@ -23,6 +23,7 @@ import {
   
 } from "@angular/material";
 import { UserContactComponent } from "app/user-contact/user-contact.component";
+import { UserReservationComponent } from "app/user-reservation/user-reservation.component";
 
 @NgModule({
   imports: [
@@ -44,7 +45,7 @@ import { UserContactComponent } from "app/user-contact/user-contact.component";
   declarations: [UserContactComponent,
     UserProfileComponent,
     TableListComponent,
-    NotificationsComponent, DialogOverviewExampleDialog
+    NotificationsComponent, UserReservationComponent,DialogOverviewExampleDialog
     
   ],
   entryComponents: [DialogOverviewExampleDialog

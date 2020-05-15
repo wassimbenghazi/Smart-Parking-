@@ -12,8 +12,9 @@ export class UserContactComponent implements OnInit,AfterViewInit {
   constructor(private firestore: AngularFirestore,private firebaseService: FirebaseService) { }
   licensePlates=[]
   dataSource:any[] 
+  balance:number=0.0;
   displayedColumns: string[] = ['Type Car', 'license Plate number', 'verification status'];
-  ngOnInit() {}
+  ngOnInit() {this.balance= this.firebaseService.currentUser.balance;}
   loadData(){
     this.firestore.collection("LicensePlates").ref.where("id", "==", this.firebaseService.currentUser.id).onSnapshot(snap=>{ console.log(snap)
       snap.forEach(userRef => {

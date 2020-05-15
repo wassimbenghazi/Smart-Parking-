@@ -1,3 +1,38 @@
-<p>
-  user-reservation works!
-</p>
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-info" >
+      
+                    <div class="card-icon">
+                       <!-- <i class="material-icons">list</i> -->
+                       <span class="material-icons">
+                        assignment
+                        </span>
+                    </div>
+                    <h3 class="card-title">Contact  
+                    <h5 class="card-category " style="color: white;"> Feel free to write </h5>
+                    </h3>
+                  <div class="row">
+                    <div class="col-md-3 offset-md-3"></div>
+                    
+                  </div>
+                </div>
+                 
+                  <div class="card-body">
+                    <form >
+                      <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Contact us :</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="contact" name="contact" rows="6"></textarea>
+                      </div>
+                      
+                      <button type="button" class="btn btn-success" (click)="sendContact()" style="margin-top: 8px; margin-right: 8px;"> send </button>
+                    </form> 
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div>
