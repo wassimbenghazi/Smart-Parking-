@@ -33,12 +33,6 @@ export const ROUTES: RouteInfo[] = [
     icon: "assignment",
     class: ""
   },
-  {
-    path: "/admin/notifications",
-    title: "Notifications",
-    icon: "notifications",
-    class: ""
-  },
  
 ];
 
@@ -49,11 +43,37 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-
+  routes: RouteInfo[];
   constructor(private firebaseService:FirebaseService) {}
 
-  ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+  ngOnInit() { if(this.firebaseService.currentUser.role == "admin") {
+    this.routes=[{
+      path: "/admin/table-list",
+      title: "table of users",
+      icon: "content_paste",
+      class: ""
+    }]
+    
+    }
+    if(this.firebaseService.currentUser.role == "user"){this.routes=[  {
+      path: "/admin/user-profile",
+      title: "add a new car",
+      icon: "directions_car",
+      class: "",
+      
+    },  {
+      path: "/admin/details",
+      title: "details",
+      icon: "content_paste",
+      class: ""
+    },
+    {
+      path: "/admin/reclamations",
+      title: "Contact",
+      icon: "assignment",
+      class: ""
+    },]}
+    this.menuItems = this.routes.filter(menuItem => menuItem);
   }
   isMobileMenu() {
     if ($(window).width() > 991) {

@@ -38,7 +38,19 @@ export class FirebaseService {
       message:contact,
       seen:"Not yet"
      }
-    this.firestore.collection("Messages").add(myContact)
+     let keys=[]
+    this.firestore.collection("Messages").add(myContact).then(querySnapshot =>{
+    this.firestore.collection("AdminReply").ref.where("id","==",this.currentUser.id).get().then(querySnapshot => {
+      querySnapshot.forEach(userRef=> { 
+       keys.push( userRef.id as string  )
+      
+        })
+        for (var val of keys) {
+          this.firestore.collection("AdminReply").doc(val).delete()
+        }
+        
+     
+    }) })
        
   }
 
@@ -70,7 +82,7 @@ export class FirebaseService {
           if(x.data().role !== "admin") {
             this.router.navigate(["/admin/user-profile"]);
           }else{
-            this.router.navigate(["/admin/user-profile"]);
+            this.router.navigate(["/admin/table-list"]);
           }
           
          
@@ -100,7 +112,7 @@ export class FirebaseService {
             if(userRef.data().role !== "admin") {
               this.router.navigate(["/admin/user-profile"]);
             }else{
-              this.router.navigate(["/admin/user-profile"]);
+              this.router.navigate(["/admin/table-list"]);
             }
           })
         })
@@ -135,9 +147,9 @@ export class FirebaseService {
             console.log(this.userStatus)
             
             if(userRef.data().role !== "admin") {
-             this.ngZone.run(() => this.router.navigate(["/"]));
+             this.ngZone.run(() => this.router.navigate(["/admin/user-profile"]));
             }else{
-             this.ngZone.run(() => this.router.navigate(["/admin"])); 
+             this.ngZone.run(() => this.router.navigate(["/admin/table-list"])); 
             }
           })
         })
@@ -175,6 +187,8 @@ export class FirebaseService {
     this.firestore.collection("users").doc(key).update( {
       "balance": user.balance + amount
     }) 
+    this.router.navigate(["/admin/table-list"]);
+   
   }) 
   
   // .onSnapshot(snap=>{
@@ -185,6 +199,34 @@ export class FirebaseService {
   //   }) 
   // }) 
   }
+
+  sendReply(reply,id){
+    let myReply = {
+      id: id,
+      reply:reply,
+     }
+     
+     let keys=[]
+
+     this.firestore.collection("AdminReply").add(myReply).then(querySnapshot1 => {
+      this.firestore.collection("Messages").ref.where("id","==",id).get().then(querySnapshot => {
+        querySnapshot.forEach(userRef=> { 
+         keys.push( userRef.id as string  )
+        
+          })
+          for (var val of keys) {
+            this.firestore.collection("Messages").doc(val).delete()
+          }
+          
+       
+      }) 
+          
+    })
+    
+  }
+
+
+
   deleteUser(user:User){
     this.userDoc= this.firestore.doc(`users/lF7UaGNMFsS0XoNb8tlK`)
     this.userDoc.delete()

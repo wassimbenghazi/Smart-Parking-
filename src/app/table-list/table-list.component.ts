@@ -31,7 +31,9 @@ export class TableListComponent implements OnInit ,AfterViewInit {
     
     
   }
+  
   loadData(){
+ 
     this.firestore.collection("users").ref.where("role", "==", "user").onSnapshot(snap=>{ console.log(snap)
       snap.forEach(userRef => {
           console.log("userRef", userRef.data());
@@ -40,8 +42,7 @@ export class TableListComponent implements OnInit ,AfterViewInit {
           this.dataSource = this.Users
           })
         })
-   
-   
+       
    
     //     this.itemList.snapshotChanges().subscribe(
     //   actions =>{
@@ -84,20 +85,33 @@ export class TableListComponent implements OnInit ,AfterViewInit {
     
   } 
   licensePlates=[]
+  messages=[]
 
    openDialog( user) { 
      this.licensePlates=[]
+     this.messages=[]
     
+     
     this.firestore.collection("LicensePlates").ref.where("id", "==", user.id).get().then( querySnapshot => {
       querySnapshot.forEach(userRef => {
         console.log("LicensePlates", userRef.data());
         this.licensePlates.push( userRef.data() as any  )
 
         })
-        const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-          width: '1200px',
-          data: {user:user, LicensePlates:this.licensePlates}
+        this.firestore.collection("Messages").ref.where("id", "==", user.id).get().then( querySnapshot => {
+          querySnapshot.forEach(userRef => {
+            
+            this.messages.push( userRef.data() as any  )
+    
+            })
+            console.log("meesages ",this.messages)
+            const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+              width: '1200px',
+              data: {user:user, LicensePlates:this.licensePlates , messages: this.messages }
+            });
         });
+      
+       
   });
   
     
@@ -145,17 +159,25 @@ export class DialogOverviewExampleDialog  {
     ) {}
     displayedColumns: string[] = ['Type Car', 'license Plate number', 'verification status','action'];
     amount:number=0.0
+    reply:string=""
     
     verification(nb_L:any){ 
       
       this.firebaseService.updateLicensePlate(nb_L);
       this.showNotification('top','right',"License Plate has been verified :) ")
+      this.dialogRef.close();
   
     }
 
     addBalnace(){
       this.firebaseService.updateBalance(this.data.user,this.amount);
       this.showNotification('top','right',"The amount has been added to client balance :) ")
+      this.dialogRef.close();
+      
+    }
+    sendReply(){
+      this.firebaseService.sendReply(this.reply,this.data.user.id)
+      this.showNotification('top','right',"Message has been sent to client :) ")
     }
   
   onNoClick(): void {

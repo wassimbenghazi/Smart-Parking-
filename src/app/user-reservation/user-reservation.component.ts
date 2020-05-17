@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'app/firebase.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 declare var $: any;
 @Component({
   selector: 'app-user-reservation',
@@ -8,16 +9,38 @@ declare var $: any;
 })
 export class UserReservationComponent implements OnInit {
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(private firestore: AngularFirestore,private firebaseService: FirebaseService) { }
 
-  ngOnInit() {
+  ngOnInit() { this.loadData()
   }
+  replys=[]
   contact:string=""
   sendContact(){
-    console.log(this.contact)
+    
     this.firebaseService.sendContact(this.contact)
     this.showNotification('top','right')
   }
+  loadData(){
+    this.replys=[]
+    this.firestore.collection("AdminReply").ref.where("id", "==", this.firebaseService.currentUser.id).onSnapshot(snap=>{ 
+      snap.forEach(userRef => {
+          console.log("AdminReply", userRef.data());
+          this.replys.push( userRef.data() as any  )
+
+          
+          
+          })
+          
+        })
+      
+      }
+  // ngAfterViewInit() {
+  //                     this.loadData()
+  //                   }
+ 
+
+
+
 
   showNotification(from, align){
     const type = ['','info','success','warning','danger'];

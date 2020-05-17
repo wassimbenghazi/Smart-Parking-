@@ -10,9 +10,9 @@ import { UserReservationComponent } from "app/user-reservation/user-reservation.
 export const AdminLayoutRoutes: Routes = [
 
     
-  { path: "user-profile", component: UserProfileComponent, canActivate:[AuthGuard], data: {roles: ["user", "admin"]} },
-  { path: "details", component: UserContactComponent, canActivate:[AuthGuard], data: {roles: ["user", "admin"]} },
-  { path: "table-list", component: TableListComponent,  canActivate:[AuthGuard], data: {roles: ["user", "admin"]}},
-  { path: "notifications", component: NotificationsComponent, canActivate:[AuthGuard], data: {roles: ["user", "admin"]}},
-  { path: "reclamations", component: UserReservationComponent, canActivate:[AuthGuard], data: {roles: ["user", "admin"]}}
+  { path: "user-profile", component: UserProfileComponent, canActivate:[AuthGuard], data: {roles: ["user"]} },
+  { path: "details", component: UserContactComponent, canActivate:[AuthGuard], data: {roles: ["user"]} },
+  { path: "table-list", component: TableListComponent,  canActivate:[AuthGuard], data: {roles: ["admin"]}},
+  // { path: "notifications", component: NotificationsComponent, canActivate:[AuthGuard], data: {roles: ["user", "admin"]}},
+  { path: "reclamations", component: UserReservationComponent, canActivate:[AuthGuard], data: {roles: ["user"]}}
 ];
